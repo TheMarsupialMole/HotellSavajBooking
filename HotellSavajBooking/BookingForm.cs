@@ -16,5 +16,15 @@ namespace HotellSavajBooking
         {
             InitializeComponent();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            cbTypOfRoom.DataSource = Enum.GetNames(typeof(RoomType));
+        }
+
+        private void checkWakeupCall_CheckedChanged(object sender, EventArgs e)
+        {
+            dtpWakeupTime.Enabled = checkWakeupCall.Checked;
+        }
     }
 }

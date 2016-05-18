@@ -8,8 +8,8 @@ namespace HotellSavajBooking
     /// </summary>
     public enum RoomType
     {
-        Dubbelrum,
         Enkelrum,
+        Dubbelrum,
         Suite
     }
 }
