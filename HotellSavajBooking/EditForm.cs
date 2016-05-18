@@ -24,11 +24,25 @@ namespace HotellSavajBooking
             ValidateAndGet(txbBookingNr.Text);
         }
 
+
+        private void btnNameNDateSearch_Click(object sender, EventArgs e)
+        {
+            ValidateAndGetNameDate(txbName.Text, dateTimePicker1);
+        }
+
         private void ValidateAndGet(string text)
         {
             if (!text.Equals(string.Empty))
                 Console.Write("test");
                 //bookingToEdit = dBCon(text);
         }
+
+        private void ValidateAndGetNameDate(string name, DateTimePicker date)
+        {
+            if (!name.Equals(string.Empty))
+                Console.Write("test");
+            //bookingToEdit = dBCon(name, date);
+        }
+
     }
 }
