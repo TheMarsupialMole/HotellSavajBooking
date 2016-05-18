@@ -1,6 +1,6 @@
 ﻿namespace HotellSavajBooking
 {
-    partial class Form1
+    partial class BookingForm
     {
         /// <summary>
         /// Required designer variable.
