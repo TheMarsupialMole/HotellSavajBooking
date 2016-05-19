@@ -45,6 +45,7 @@
             this.tbLastName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,6 +61,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.dtpWakeupTime);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.dtpEndDate);
@@ -77,7 +79,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(19, 61);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(260, 233);
+            this.groupBox1.Size = new System.Drawing.Size(260, 259);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Booking information";
@@ -218,11 +220,20 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "First name";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(10, 220);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(236, 23);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "Search for available rooms";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // BookingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(818, 321);
+            this.ClientSize = new System.Drawing.Size(818, 359);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Name = "BookingForm";
@@ -255,5 +266,6 @@
         private System.Windows.Forms.DateTimePicker dtpStartDate;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker dtpWakeupTime;
+        private System.Windows.Forms.Button button1;
     }
 }
