@@ -57,8 +57,9 @@ namespace HotellSavajBooking
                 {
                     sb.AppendLine("Wakeup time: " + dtpWakeupTime.Text);
                 }
-                DialogResult result = MessageBox.Show(sb.ToString(), "Is this information correct?", MessageBoxButtons.OKCancel);
                 
+                DialogResult result = MessageBox.Show(sb.ToString(), "Is this information correct?", MessageBoxButtons.OKCancel);
+                //_dbHandler.GetAvailableRooms(dtpStartDate.Text, dtpEndDate.Text, cbTypOfRoom.SelectedItem, checkMinibar.Checked);
             }
         }
 
