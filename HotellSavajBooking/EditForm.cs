@@ -15,6 +15,9 @@ namespace HotellSavajBooking
         public EditForm()
         {
             InitializeComponent();
+            DbHandler db = new DbHandler();
+
+            db.test();
         }
 
         private void bookingBindingNavigatorSaveItem_Click(object sender, EventArgs e)
