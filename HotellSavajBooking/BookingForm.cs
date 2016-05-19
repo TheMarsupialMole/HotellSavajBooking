@@ -15,11 +15,22 @@ namespace HotellSavajBooking
         public BookingForm()
         {
             InitializeComponent();
+            new EditForm().Show();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            cbTypOfRoom.DataSource = Enum.GetNames(typeof(RoomType));
+
+            initializeGui();
+        }
+
+        private void initializeGui()
+        {
+            foreach (string str in Enum.GetNames(typeof(RoomType)))
+            {
+                cbTypOfRoom.Items.Add(str.Replace("_", " "));
+                cbTypOfRoom.SelectedIndex = 0;
+            }
         }
 
         private void checkWakeupCall_CheckedChanged(object sender, EventArgs e)
