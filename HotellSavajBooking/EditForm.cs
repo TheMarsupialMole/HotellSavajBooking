@@ -8,44 +8,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-/// <summary>
-/// class written by Ted Malmgren
-/// </summary>
 namespace HotellSavajBooking
 {
     public partial class EditForm : Form
     {
-        private DbHandler dbCon;
-        private Booking bookingToEdit;
         public EditForm()
         {
             InitializeComponent();
         }
 
-        private void btnBookingSearch_Click(object sender, EventArgs e)
+        private void bookingBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
-            ValidateAndGet(txbBookingNr.Text);
+            this.Validate();
+            this.bookingBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.hotSavDBDataSet);
+
         }
 
-
-        private void btnNameNDateSearch_Click(object sender, EventArgs e)
+        private void Editform_Load(object sender, EventArgs e)
         {
-            ValidateAndGetNameDate(txbName.Text, dateTimePicker1);
-        }
+            // TODO: This line of code loads data into the 'hotSavDBDataSet.Room' table. You can move, or remove it, as needed.
+            this.roomTableAdapter.Fill(this.hotSavDBDataSet.Room);
+            // TODO: This line of code loads data into the 'hotSavDBDataSet.Booking' table. You can move, or remove it, as needed.
+            this.bookingTableAdapter.Fill(this.hotSavDBDataSet.Booking);
 
-        private void ValidateAndGet(string text)
-        {
-            if (!text.Equals(string.Empty))
-                Console.Write("test");
-                //bookingToEdit = dBCon(text);
         }
-
-        private void ValidateAndGetNameDate(string name, DateTimePicker date)
-        {
-            if (!name.Equals(string.Empty))
-                Console.Write("test");
-            //bookingToEdit = dBCon(name, date);
-        }
-
     }
 }

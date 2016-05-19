@@ -75,10 +75,13 @@
     <Compile Include="EditForm.Designer.cs">
       <DependentUpon>EditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="HotelSavajDBDataSet.Designer.cs">
+    <Compile Include="HotSavDBDataSet.cs">
+      <DependentUpon>HotSavDBDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="HotSavDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HotelSavajDBDataSet.xsd</DependentUpon>
+      <DependentUpon>HotSavDBDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,16 +102,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="HotelSavajDBDataSet.xsc">
-      <DependentUpon>HotelSavajDBDataSet.xsd</DependentUpon>
+    <None Include="HotSavDBDataSet.xsc">
+      <DependentUpon>HotSavDBDataSet.xsd</DependentUpon>
     </None>
-    <None Include="HotelSavajDBDataSet.xsd">
+    <None Include="HotSavDBDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>HotelSavajDBDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>HotSavDBDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="HotelSavajDBDataSet.xss">
-      <DependentUpon>HotelSavajDBDataSet.xsd</DependentUpon>
+    <None Include="HotSavDBDataSet.xss">
+      <DependentUpon>HotSavDBDataSet.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -136,12 +139,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HotelSavajDB.mdf">
+    <Content Include="HotSavDB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="HotelSavajDB_log.ldf">
+    <Content Include="HotSavDB_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>HotelSavajDB.mdf</DependentUpon>
+      <DependentUpon>HotSavDB.mdf</DependentUpon>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
