@@ -30,6 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnSearchRoom = new System.Windows.Forms.Button();
             this.dtpWakeupTime = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
             this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
@@ -45,9 +46,11 @@
             this.tbLastName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listAvailableRooms = new System.Windows.Forms.ListBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnBookRoom = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -62,7 +65,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnSearchRoom);
             this.groupBox1.Controls.Add(this.dtpWakeupTime);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.dtpEndDate);
@@ -85,6 +88,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Booking information";
             // 
+            // btnSearchRoom
+            // 
+            this.btnSearchRoom.Location = new System.Drawing.Point(10, 220);
+            this.btnSearchRoom.Name = "btnSearchRoom";
+            this.btnSearchRoom.Size = new System.Drawing.Size(236, 23);
+            this.btnSearchRoom.TabIndex = 8;
+            this.btnSearchRoom.Text = "Search for available rooms";
+            this.btnSearchRoom.UseVisualStyleBackColor = true;
+            this.btnSearchRoom.Click += new System.EventHandler(this.button1_Click);
+            // 
             // dtpWakeupTime
             // 
             this.dtpWakeupTime.CustomFormat = "HH:mm";
@@ -94,7 +107,7 @@
             this.dtpWakeupTime.Name = "dtpWakeupTime";
             this.dtpWakeupTime.ShowUpDown = true;
             this.dtpWakeupTime.Size = new System.Drawing.Size(97, 20);
-            this.dtpWakeupTime.TabIndex = 14;
+            this.dtpWakeupTime.TabIndex = 7;
             this.dtpWakeupTime.Value = new System.DateTime(2016, 5, 18, 7, 0, 0, 0);
             // 
             // label8
@@ -113,7 +126,7 @@
             this.dtpEndDate.Name = "dtpEndDate";
             this.dtpEndDate.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dtpEndDate.Size = new System.Drawing.Size(97, 20);
-            this.dtpEndDate.TabIndex = 12;
+            this.dtpEndDate.TabIndex = 4;
             // 
             // dtpStartDate
             // 
@@ -121,7 +134,7 @@
             this.dtpStartDate.Location = new System.Drawing.Point(149, 97);
             this.dtpStartDate.Name = "dtpStartDate";
             this.dtpStartDate.Size = new System.Drawing.Size(97, 20);
-            this.dtpStartDate.TabIndex = 12;
+            this.dtpStartDate.TabIndex = 3;
             // 
             // label7
             // 
@@ -138,7 +151,7 @@
             this.checkWakeupCall.Location = new System.Drawing.Point(202, 171);
             this.checkWakeupCall.Name = "checkWakeupCall";
             this.checkWakeupCall.Size = new System.Drawing.Size(44, 17);
-            this.checkWakeupCall.TabIndex = 9;
+            this.checkWakeupCall.TabIndex = 6;
             this.checkWakeupCall.Text = "Yes";
             this.checkWakeupCall.UseVisualStyleBackColor = true;
             this.checkWakeupCall.CheckedChanged += new System.EventHandler(this.checkWakeupCall_CheckedChanged);
@@ -158,7 +171,7 @@
             this.checkMinibar.Location = new System.Drawing.Point(202, 149);
             this.checkMinibar.Name = "checkMinibar";
             this.checkMinibar.Size = new System.Drawing.Size(44, 17);
-            this.checkMinibar.TabIndex = 7;
+            this.checkMinibar.TabIndex = 5;
             this.checkMinibar.Text = "Yes";
             this.checkMinibar.UseVisualStyleBackColor = true;
             // 
@@ -187,21 +200,21 @@
             this.cbTypOfRoom.Location = new System.Drawing.Point(82, 70);
             this.cbTypOfRoom.Name = "cbTypOfRoom";
             this.cbTypOfRoom.Size = new System.Drawing.Size(164, 21);
-            this.cbTypOfRoom.TabIndex = 4;
+            this.cbTypOfRoom.TabIndex = 2;
             // 
             // tbFirstName
             // 
             this.tbFirstName.Location = new System.Drawing.Point(82, 19);
             this.tbFirstName.Name = "tbFirstName";
             this.tbFirstName.Size = new System.Drawing.Size(164, 20);
-            this.tbFirstName.TabIndex = 3;
+            this.tbFirstName.TabIndex = 0;
             // 
             // tbLastName
             // 
             this.tbLastName.Location = new System.Drawing.Point(82, 44);
             this.tbLastName.Name = "tbLastName";
             this.tbLastName.Size = new System.Drawing.Size(164, 20);
-            this.tbLastName.TabIndex = 2;
+            this.tbLastName.TabIndex = 1;
             // 
             // label3
             // 
@@ -221,37 +234,50 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "First name";
             // 
-            // button1
+            // listAvailableRooms
             // 
-            this.button1.Location = new System.Drawing.Point(10, 220);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(236, 23);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Search for available rooms";
-            this.button1.UseVisualStyleBackColor = true;
+            this.listAvailableRooms.FormattingEnabled = true;
+            this.listAvailableRooms.Location = new System.Drawing.Point(6, 19);
+            this.listAvailableRooms.Name = "listAvailableRooms";
+            this.listAvailableRooms.Size = new System.Drawing.Size(372, 186);
+            this.listAvailableRooms.TabIndex = 2;
             // 
-            // listBox1
+            // groupBox2
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(315, 70);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 95);
-            this.listBox1.TabIndex = 2;
+            this.groupBox2.Controls.Add(this.btnBookRoom);
+            this.groupBox2.Controls.Add(this.listAvailableRooms);
+            this.groupBox2.Location = new System.Drawing.Point(285, 61);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(384, 259);
+            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Available rooms";
+            // 
+            // btnBookRoom
+            // 
+            this.btnBookRoom.Location = new System.Drawing.Point(212, 220);
+            this.btnBookRoom.Name = "btnBookRoom";
+            this.btnBookRoom.Size = new System.Drawing.Size(166, 23);
+            this.btnBookRoom.TabIndex = 3;
+            this.btnBookRoom.Text = "Book selected room";
+            this.btnBookRoom.UseVisualStyleBackColor = true;
             // 
             // BookingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(818, 359);
-            this.Controls.Add(this.listBox1);
+            this.ClientSize = new System.Drawing.Size(681, 359);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Name = "BookingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Hotel Savaj Booking";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BookingForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -276,7 +302,9 @@
         private System.Windows.Forms.DateTimePicker dtpStartDate;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker dtpWakeupTime;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button btnSearchRoom;
+        private System.Windows.Forms.ListBox listAvailableRooms;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button btnBookRoom;
     }
 }
