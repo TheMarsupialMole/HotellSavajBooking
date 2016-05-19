@@ -30,7 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSearchRoom = new System.Windows.Forms.Button();
             this.dtpWakeupTime = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
             this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
@@ -65,7 +65,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnSearchRoom);
             this.groupBox1.Controls.Add(this.dtpWakeupTime);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.dtpEndDate);
@@ -88,15 +88,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Booking information";
             // 
-            // button1
+            // btnSearchRoom
             // 
-            this.button1.Location = new System.Drawing.Point(10, 220);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(236, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Search for available rooms";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnSearchRoom.Location = new System.Drawing.Point(10, 220);
+            this.btnSearchRoom.Name = "btnSearchRoom";
+            this.btnSearchRoom.Size = new System.Drawing.Size(236, 23);
+            this.btnSearchRoom.TabIndex = 8;
+            this.btnSearchRoom.Text = "Search for available rooms";
+            this.btnSearchRoom.UseVisualStyleBackColor = true;
+            this.btnSearchRoom.Click += new System.EventHandler(this.button1_Click);
             // 
             // dtpWakeupTime
             // 
@@ -302,7 +302,7 @@
         private System.Windows.Forms.DateTimePicker dtpStartDate;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker dtpWakeupTime;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSearchRoom;
         private System.Windows.Forms.ListBox listAvailableRooms;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnBookRoom;
