@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/// <summary>
+/// class written by Ted Malmgren
+/// </summary>
 namespace HotellSavajBooking
 {
     public partial class EditForm : Form
