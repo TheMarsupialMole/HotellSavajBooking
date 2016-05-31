@@ -31,8 +31,7 @@ namespace HotellSavajBooking
              start + "' BETWEEN Booking.startdate AND Booking.enddate) AND Room.id NOT IN (SELECT Room.id FROM Room inner join Booking on Room.Id = Booking.room WHERE '" +
              end + "' BETWEEN Booking.startdate AND Booking.enddate) AND Room.id IN (SELECT Room.id from Room WHERE Room.roomtype = " + typeOfRoom + " AND Room.minibar = " +
              mb + ")", con);
-            //SqlCommand comm = new SqlCommand("SELECT Room.id, startdate, enddate FROM Room inner join Booking on Room.Id = Booking.room WHERE '" +
-             //start + "' NOT BETWEEN Booking.startdate AND Booking.enddate", con);
+
             using (SqlDataReader reader = comm.ExecuteReader())
             {
                 while (reader.Read())
@@ -86,12 +85,13 @@ namespace HotellSavajBooking
             //var s = start.ToShortDateString();
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
-            SqlCommand comm = new SqlCommand("INSERT INTO Booking startdate, enddate, firstname, lastname, room, wake, waketime " +
-                " values ('"+ booking.Startime + "', '" + booking.EndTime + "', '" + booking.FirstName + "', '" 
-                + booking.LastName + "', '" + booking.BookedId + "', '" + booking.WakeUp + "', '" + booking.WakeTime + "'", con);
+            SqlCommand comm = new SqlCommand("INSERT INTO Booking (startdate, enddate, firstname, lastname, room, wake, waketime) " +
+                " VALUES ('"+ booking.Startime + "', '" + booking.EndTime + "', '" + booking.FirstName + "', '" 
+                + booking.LastName + "', " + booking.BookedId + ", '" + booking.WakeUp + "', '" + booking.WakeTime + "')", con);
 
             
             bool success =  Convert.ToBoolean(comm.ExecuteNonQuery());
+            Console.Write(success);
             con.Close();
 
             return success;
