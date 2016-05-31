@@ -118,8 +118,10 @@ namespace HotellSavajBooking
                 {
                     int roomNumber = (int) _roomList[listAvailableRooms.SelectedIndex];
               
-                    _dbHandler.InsertBooking(new Booking(dtpStartDate.Value, dtpEndDate.Value, tbFirstName.Text,
+                    bool bookingSuccess = _dbHandler.InsertBooking(new Booking(dtpStartDate.Value, dtpEndDate.Value, tbFirstName.Text,
                         tbLastName.Text, roomNumber, checkWakeupCall.Checked, dtpWakeupTime.Value));
+
+                    if (bookingSuccess) MessageBox.Show(null, "Ditt rum är bokat!", MessageBoxButtons.OK);
                 }
             }
         }
