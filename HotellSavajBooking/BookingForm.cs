@@ -119,7 +119,10 @@ namespace HotellSavajBooking
                 DialogResult result = MessageBox.Show(sb.ToString(), "Is this information correct?", MessageBoxButtons.OKCancel);
                 if (result == DialogResult.OK)
                 {
-                    Console.WriteLine("OK");
+                    int roomNumber = (int) _roomList[listAvailableRooms.SelectedIndex];
+
+                    _dbHandler.InsertBooking(new Booking(dtpStartDate.Value, dtpEndDate.Value, tbFirstName.Text,
+                        tbLastName.Text, roomNumber, checkWakeupCall.Checked, dtpWakeupTime.Value));
                 }
             }
         }
