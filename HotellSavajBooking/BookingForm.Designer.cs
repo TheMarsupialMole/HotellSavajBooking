@@ -57,7 +57,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Constantia", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Location = new System.Drawing.Point(86, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(252, 33);
             this.label1.TabIndex = 0;
@@ -239,7 +239,7 @@
             this.listAvailableRooms.FormattingEnabled = true;
             this.listAvailableRooms.Location = new System.Drawing.Point(6, 19);
             this.listAvailableRooms.Name = "listAvailableRooms";
-            this.listAvailableRooms.Size = new System.Drawing.Size(372, 186);
+            this.listAvailableRooms.Size = new System.Drawing.Size(119, 186);
             this.listAvailableRooms.TabIndex = 2;
             // 
             // groupBox2
@@ -248,16 +248,16 @@
             this.groupBox2.Controls.Add(this.listAvailableRooms);
             this.groupBox2.Location = new System.Drawing.Point(285, 61);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(384, 259);
+            this.groupBox2.Size = new System.Drawing.Size(132, 259);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Available rooms";
             // 
             // btnBookRoom
             // 
-            this.btnBookRoom.Location = new System.Drawing.Point(212, 220);
+            this.btnBookRoom.Location = new System.Drawing.Point(6, 220);
             this.btnBookRoom.Name = "btnBookRoom";
-            this.btnBookRoom.Size = new System.Drawing.Size(166, 23);
+            this.btnBookRoom.Size = new System.Drawing.Size(119, 23);
             this.btnBookRoom.TabIndex = 3;
             this.btnBookRoom.Text = "Book selected room";
             this.btnBookRoom.UseVisualStyleBackColor = true;
@@ -266,7 +266,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(681, 359);
+            this.ClientSize = new System.Drawing.Size(430, 328);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);

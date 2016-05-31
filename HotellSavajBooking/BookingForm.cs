@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,11 +14,13 @@ namespace HotellSavajBooking
     public partial class BookingForm : Form
     {
         private DbHandler _dbHandler = new DbHandler();
+        private ArrayList _roomList = new ArrayList();
 
         public BookingForm()
         {
             InitializeComponent();
             new EditForm().Show();
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -49,9 +52,9 @@ namespace HotellSavajBooking
                 sb.AppendLine("Room type: " + cbTypOfRoom.Text);
                 sb.AppendLine("Start date: " + dtpStartDate.Text);
                 sb.AppendLine("End date: " + dtpEndDate.Text);
-                string wantMiniBar = checkMinibar.Checked ? "YES" : "NO";
+                string wantMiniBar = checkMinibar.Checked ? "Yes" : "No";
                 sb.AppendLine("Mini bar: " + wantMiniBar);
-                string wantWakeUpCall = checkWakeupCall.Checked ? "YES" : "NO";
+                string wantWakeUpCall = checkWakeupCall.Checked ? "Yes" : "No";
                 sb.AppendLine("Wakeup call: " + wantWakeUpCall);
                 if (checkWakeupCall.Checked)
                 {
@@ -59,7 +62,7 @@ namespace HotellSavajBooking
                 }
                 
                 DialogResult result = MessageBox.Show(sb.ToString(), "Is this information correct?", MessageBoxButtons.OKCancel);
-                //_dbHandler.GetAvailableRooms(dtpStartDate.Text, dtpEndDate.Text, cbTypOfRoom.SelectedItem, checkMinibar.Checked);
+                //_dbHandler.GetAvailableRooms(dtpStartDate.Value, dtpEndDate.Value, cbTypOfRoom.SelectedIndex, checkMinibar.Checked);
             }
         }
 
@@ -80,7 +83,9 @@ namespace HotellSavajBooking
 
         private void BookingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            DialogResult result = MessageBox.Show("Your exiting the program.", "Are you sure?",
+                MessageBoxButtons.OKCancel);
+            if (result == DialogResult.Cancel) e.Cancel = true;
         }
     }
 }
