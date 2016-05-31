@@ -49,9 +49,6 @@ namespace HotellSavajBooking
             _roomList = _dbHandler.GetAvailableRooms(dtpStartDate.Value, dtpEndDate.Value, cbTypOfRoom.SelectedIndex, checkMinibar.Checked);
             listAvailableRooms.Items.Clear();
             listAvailableRooms.Items.AddRange(_roomList.ToArray());
-                
-                
-           
         }
 
         private bool ValidateForm()
@@ -120,7 +117,7 @@ namespace HotellSavajBooking
                 if (result == DialogResult.OK)
                 {
                     int roomNumber = (int) _roomList[listAvailableRooms.SelectedIndex];
-
+              
                     _dbHandler.InsertBooking(new Booking(dtpStartDate.Value, dtpEndDate.Value, tbFirstName.Text,
                         tbLastName.Text, roomNumber, checkWakeupCall.Checked, dtpWakeupTime.Value));
                 }
