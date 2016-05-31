@@ -90,10 +90,13 @@ namespace HotellSavajBooking
                 " values ('"+ booking.Startime + "', '" + booking.EndTime + "', '" + booking.FirstName + "', '" 
                 + booking.LastName + "', '" + booking.BookedId + "', '" + booking.WakeUp + "', '" + booking.WakeTime + "'", con);
 
-            con.Close();
-            return Convert.ToBoolean(comm.ExecuteNonQuery());
-           
             
+            bool success =  Convert.ToBoolean(comm.ExecuteNonQuery());
+            con.Close();
+
+            return success;
+
+
         }
     }
 }
