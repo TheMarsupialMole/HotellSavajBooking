@@ -17,15 +17,14 @@ namespace HotellSavajBooking
     /// </summary>
     class DbHandler
     {
-
+        //The method return all available rooms based on the parameters provided
         public ArrayList GetAvailableRooms(DateTime start, DateTime end, int typeOfRoom, bool miniBar)
         {
             ArrayList tmplist = new ArrayList();
             int mb = Convert.ToInt32(miniBar);
             string connectionString =
-        HotellSavajBooking.Properties.Settings.Default.HotSavDBConnectionString;
+                 HotellSavajBooking.Properties.Settings.Default.HotSavDBConnectionString;
 
-            //var s = start.ToShortDateString();
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
             SqlCommand comm = new SqlCommand("SELECT Room.id from Room WHERE Room.id NOT IN (SELECT Room.id FROM Room inner join Booking on Room.Id = Booking.room WHERE '" +
@@ -54,7 +53,6 @@ namespace HotellSavajBooking
             string connectionString =
                 HotellSavajBooking.Properties.Settings.Default.HotSavDBConnectionString;
 
-            //var s = start.ToShortDateString();
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
             SqlCommand comm = new SqlCommand("SELECT * from Booking WHERE Booking.Id = " + 
@@ -66,14 +64,35 @@ namespace HotellSavajBooking
                     tmplist.Add(reader.GetInt32(0));
                     tmplist.Add(reader.GetDateTime(1));
                     tmplist.Add(reader.GetDateTime(2));
+                    tmplist.Add(reader.GetString(3));
+                    tmplist.Add(reader.GetString(4));
                     tmplist.Add(reader.GetInt32(5));
+                    tmplist.Add(reader.GetBoolean(6));
+                    tmplist.Add(reader.GetDateTime(7));
                 }
             }
 
 
             con.Close();
-            return new Booking((DateTime)tmplist[1], (DateTime)tmplist[2], new Room((int)tmplist[3], 0, new DateTime(), true));
+            return new Booking((DateTime)tmplist[1], (DateTime)tmplist[2], (string)tmplist[3], (string)tmplist[4], (int)tmplist[5], (bool)tmplist[6], (DateTime)tmplist[7]);     
+        }
 
+        public bool InsertBooking(Booking booking)
+        {
+
+            string connectionString =
+                HotellSavajBooking.Properties.Settings.Default.HotSavDBConnectionString;
+
+            //var s = start.ToShortDateString();
+            SqlConnection con = new SqlConnection(connectionString);
+            con.Open();
+            SqlCommand comm = new SqlCommand("INSERT INTO Booking startdate, enddate, firstname, lastname, room, wake, waketime " +
+                " values ('"+ booking.Startime + "', '" + booking.EndTime + "', '" + booking.FirstName + "', '" 
+                + booking.LastName + "', '" + booking.BookedId + "', '" + booking.WakeUp + "', '" + booking.WakeTime + "'", con);
+
+            con.Close();
+            return Convert.ToBoolean(comm.ExecuteNonQuery());
+           
             
         }
     }
