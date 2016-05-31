@@ -75,12 +75,20 @@ namespace HotellSavajBooking
 
         private void dtpStartDate_ValueChanged(object sender, EventArgs e)
         {
-            listAvailableRooms.Items.Clear();
-            btnBookRoom.Enabled = false;
-
+            ClearSearch();
         }
 
         private void dtpEndDate_ValueChanged(object sender, EventArgs e)
+        {
+            ClearSearch();
+        }
+
+        private void cbTypOfRoom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ClearSearch();
+        }
+
+        private void ClearSearch()
         {
             listAvailableRooms.Items.Clear();
             btnBookRoom.Enabled = false;
@@ -125,5 +133,7 @@ namespace HotellSavajBooking
                 }
             }
         }
+
+
     }
 }
