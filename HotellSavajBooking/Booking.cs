@@ -12,20 +12,22 @@ namespace HotellSavajBooking
     {
         private DateTime _startTime;
         private DateTime _endTime;
-        private Room _room;
+        private string _firstName;
+        private string _lastName;
+        private int _roomId;
+        private bool _wakeUp;
+        private DateTime _wakeTime;
 
-        /// <summary>
-        /// Constructor for the Booking class that takes a start and end date and
-        /// a Room object.
-        /// </summary>
-        /// <param name="startDate">the start date</param>
-        /// <param name="endDate">the end date</param>
-        /// <param name="room">the Room object for the booking</param>
-        public Booking(DateTime startDate, DateTime endDate, Room room)
+
+        public Booking(DateTime startDate, DateTime endDate, string firstName, string lastName, int roomId, bool wakeUp, DateTime wakeTime)
         {
             _startTime = startDate;
             _endTime = endDate;
-            _room = room;
+            _firstName = firstName;
+            _lastName = lastName;
+            _roomId = roomId;
+            _wakeUp = wakeUp;
+            _wakeTime = wakeTime;
         }
 
         /// <summary>
@@ -47,12 +49,48 @@ namespace HotellSavajBooking
         }
 
         /// <summary>
+        /// Property for the first name
+        /// </summary>
+        public string FirstName
+        {
+            get { return _firstName; }
+            set { _firstName = value; }
+        }
+
+        /// <summary>
+        /// Property for the last name
+        /// </summary>
+        public string LastName
+        {
+            get { return _lastName; }
+            set { _lastName = value; }
+        }
+
+        /// <summary>
         /// Property for the Room object.
         /// </summary>
-        public Room BookedRoom
+        public int BookedId
         {
-            get { return _room; }
-            set { _room = value; }
+            get { return _roomId; }
+            set { _roomId = value; }
+        }
+
+        /// <summary>
+        /// Property for the wake up boolean
+        /// </summary>
+        public bool WakeUp
+        {
+            get { return _wakeUp; }
+            set { _wakeUp = value; }
+        }
+
+        /// <summary>
+        /// Property for the wakeup time
+        /// </summary>
+        public DateTime WakeTime
+        {
+            get { return _wakeTime; }
+            set { _wakeTime = value; }
         }
     }
 }
