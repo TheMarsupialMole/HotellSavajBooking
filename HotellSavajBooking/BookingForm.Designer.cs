@@ -127,6 +127,7 @@
             this.dtpEndDate.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dtpEndDate.Size = new System.Drawing.Size(97, 20);
             this.dtpEndDate.TabIndex = 4;
+            this.dtpEndDate.ValueChanged += new System.EventHandler(this.dtpEndDate_ValueChanged);
             // 
             // dtpStartDate
             // 
@@ -135,6 +136,7 @@
             this.dtpStartDate.Name = "dtpStartDate";
             this.dtpStartDate.Size = new System.Drawing.Size(97, 20);
             this.dtpStartDate.TabIndex = 3;
+            this.dtpStartDate.ValueChanged += new System.EventHandler(this.dtpStartDate_ValueChanged);
             // 
             // label7
             // 
@@ -241,6 +243,7 @@
             this.listAvailableRooms.Name = "listAvailableRooms";
             this.listAvailableRooms.Size = new System.Drawing.Size(119, 186);
             this.listAvailableRooms.TabIndex = 2;
+            this.listAvailableRooms.SelectedIndexChanged += new System.EventHandler(this.listAvailableRooms_SelectedIndexChanged);
             // 
             // groupBox2
             // 
@@ -261,6 +264,7 @@
             this.btnBookRoom.TabIndex = 3;
             this.btnBookRoom.Text = "Book selected room";
             this.btnBookRoom.UseVisualStyleBackColor = true;
+            this.btnBookRoom.Click += new System.EventHandler(this.btnBookRoom_Click);
             // 
             // BookingForm
             // 

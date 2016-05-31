@@ -35,6 +35,7 @@ namespace HotellSavajBooking
                 cbTypOfRoom.Items.Add(str.Replace("_", " "));
                 cbTypOfRoom.SelectedIndex = 0;
             }
+            btnBookRoom.Enabled = false;
         }
 
         private void checkWakeupCall_CheckedChanged(object sender, EventArgs e)
@@ -44,30 +45,14 @@ namespace HotellSavajBooking
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //if (ValidateForm())
-            {
-                ArrayList listOfRoom = new ArrayList();
-                listOfRoom = _dbHandler.GetAvailableRooms(dtpStartDate.Value, dtpEndDate.Value, cbTypOfRoom.SelectedIndex, checkMinibar.Checked);
-                listAvailableRooms.Items.AddRange(listOfRoom.ToArray());
+
+            ArrayList listOfRoom = new ArrayList();
+            listOfRoom = _dbHandler.GetAvailableRooms(dtpStartDate.Value, dtpEndDate.Value, cbTypOfRoom.SelectedIndex, checkMinibar.Checked);
+            listAvailableRooms.Items.Clear();
+            listAvailableRooms.Items.AddRange(listOfRoom.ToArray());
                 
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine("First name: " + tbFirstName.Text);
-                sb.AppendLine("Last name: " + tbLastName.Text);
-                sb.AppendLine("Room type: " + cbTypOfRoom.Text);
-                sb.AppendLine("Start date: " + dtpStartDate.Text);
-                sb.AppendLine("End date: " + dtpEndDate.Text);
-                string wantMiniBar = checkMinibar.Checked ? "Yes" : "No";
-                sb.AppendLine("Mini bar: " + wantMiniBar);
-                string wantWakeUpCall = checkWakeupCall.Checked ? "Yes" : "No";
-                sb.AppendLine("Wakeup call: " + wantWakeUpCall);
-                if (checkWakeupCall.Checked)
-                {
-                    sb.AppendLine("Wakeup time: " + dtpWakeupTime.Text);
-                }
                 
-                DialogResult result = MessageBox.Show(sb.ToString(), "Is this information correct?", MessageBoxButtons.OKCancel);
-                _roomList = _dbHandler.GetAvailableRooms(dtpStartDate.Value, dtpEndDate.Value, cbTypOfRoom.SelectedIndex, checkMinibar.Checked);
-            }
+           
         }
 
         private bool ValidateForm()
@@ -90,6 +75,51 @@ namespace HotellSavajBooking
             DialogResult result = MessageBox.Show("Your exiting the program.", "Are you sure?",
                 MessageBoxButtons.OKCancel);
             if (result == DialogResult.Cancel) e.Cancel = true;
+        }
+
+        private void dtpStartDate_ValueChanged(object sender, EventArgs e)
+        {
+            listAvailableRooms.Items.Clear();
+            btnBookRoom.Enabled = false;
+
+        }
+
+        private void dtpEndDate_ValueChanged(object sender, EventArgs e)
+        {
+            listAvailableRooms.Items.Clear();
+            btnBookRoom.Enabled = false;
+        }
+
+        private void listAvailableRooms_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listAvailableRooms.SelectedIndex > 0)
+            {
+                btnBookRoom.Enabled = true;
+            }
+        }
+
+        private void btnBookRoom_Click(object sender, EventArgs e)
+        {
+            if (ValidateForm())
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("First name: " + tbFirstName.Text);
+                sb.AppendLine("Last name: " + tbLastName.Text);
+                sb.AppendLine("Room type: " + cbTypOfRoom.Text);
+                sb.AppendLine("Start date: " + dtpStartDate.Text);
+                sb.AppendLine("End date: " + dtpEndDate.Text);
+                string wantMiniBar = checkMinibar.Checked ? "Yes" : "No";
+                sb.AppendLine("Mini bar: " + wantMiniBar);
+                string wantWakeUpCall = checkWakeupCall.Checked ? "Yes" : "No";
+                sb.AppendLine("Wakeup call: " + wantWakeUpCall);
+                if (checkWakeupCall.Checked)
+                {
+                    sb.AppendLine("Wakeup time: " + dtpWakeupTime.Text);
+                }
+
+                DialogResult result = MessageBox.Show(sb.ToString(), "Is this information correct?", MessageBoxButtons.OKCancel);
+                _roomList = _dbHandler.GetAvailableRooms(dtpStartDate.Value, dtpEndDate.Value, cbTypOfRoom.SelectedIndex, checkMinibar.Checked);
+            }
         }
     }
 }
