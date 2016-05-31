@@ -46,10 +46,9 @@ namespace HotellSavajBooking
         private void button1_Click(object sender, EventArgs e)
         {
 
-            ArrayList listOfRoom = new ArrayList();
-            listOfRoom = _dbHandler.GetAvailableRooms(dtpStartDate.Value, dtpEndDate.Value, cbTypOfRoom.SelectedIndex, checkMinibar.Checked);
+            _roomList = _dbHandler.GetAvailableRooms(dtpStartDate.Value, dtpEndDate.Value, cbTypOfRoom.SelectedIndex, checkMinibar.Checked);
             listAvailableRooms.Items.Clear();
-            listAvailableRooms.Items.AddRange(listOfRoom.ToArray());
+            listAvailableRooms.Items.AddRange(_roomList.ToArray());
                 
                 
            
@@ -118,7 +117,10 @@ namespace HotellSavajBooking
                 }
 
                 DialogResult result = MessageBox.Show(sb.ToString(), "Is this information correct?", MessageBoxButtons.OKCancel);
-                _roomList = _dbHandler.GetAvailableRooms(dtpStartDate.Value, dtpEndDate.Value, cbTypOfRoom.SelectedIndex, checkMinibar.Checked);
+                if (result == DialogResult.OK)
+                {
+                    Console.WriteLine("OK");
+                }
             }
         }
     }

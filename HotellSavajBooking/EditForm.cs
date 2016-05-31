@@ -51,7 +51,7 @@ namespace HotellSavajBooking
 
         private void PopulateWindow(Booking b)
         {
-            txtFirstName.Text = "  "+ b.BookedRoom.RoomNumber;
+            txtFirstName.Text = "  "+ b.BookedId;
             Console.Write("hej");
         }
 
