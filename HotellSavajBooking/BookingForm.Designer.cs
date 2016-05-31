@@ -203,6 +203,7 @@
             this.cbTypOfRoom.Name = "cbTypOfRoom";
             this.cbTypOfRoom.Size = new System.Drawing.Size(164, 21);
             this.cbTypOfRoom.TabIndex = 2;
+            this.cbTypOfRoom.SelectedIndexChanged += new System.EventHandler(this.cbTypOfRoom_SelectedIndexChanged);
             // 
             // tbFirstName
             // 
