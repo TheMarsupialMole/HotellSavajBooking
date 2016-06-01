@@ -28,7 +28,7 @@ namespace HotellSavajBooking {
         
         private RoomDataTable tableRoom;
         
-        private global::System.Data.DataRelation relationFK__Booking__room__15502E78;
+        private global::System.Data.DataRelation relationFK_Booking_ToTable;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -220,7 +220,7 @@ namespace HotellSavajBooking {
                     this.tableRoom.InitVars();
                 }
             }
-            this.relationFK__Booking__room__15502E78 = this.Relations["FK__Booking__room__15502E78"];
+            this.relationFK_Booking_ToTable = this.Relations["FK_Booking_ToTable"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -235,10 +235,10 @@ namespace HotellSavajBooking {
             base.Tables.Add(this.tableBooking);
             this.tableRoom = new RoomDataTable();
             base.Tables.Add(this.tableRoom);
-            this.relationFK__Booking__room__15502E78 = new global::System.Data.DataRelation("FK__Booking__room__15502E78", new global::System.Data.DataColumn[] {
+            this.relationFK_Booking_ToTable = new global::System.Data.DataRelation("FK_Booking_ToTable", new global::System.Data.DataColumn[] {
                         this.tableRoom.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableBooking.roomColumn}, false);
-            this.Relations.Add(this.relationFK__Booking__room__15502E78);
+            this.Relations.Add(this.relationFK_Booking_ToTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -471,7 +471,7 @@ namespace HotellSavajBooking {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public BookingRow AddBookingRow(System.DateTime startdate, System.DateTime enddate, string firstname, string lastname, RoomRow parentRoomRowByFK__Booking__room__15502E78, bool wake, System.DateTime waketime) {
+            public BookingRow AddBookingRow(System.DateTime startdate, System.DateTime enddate, string firstname, string lastname, RoomRow parentRoomRowByFK_Booking_ToTable, bool wake, System.DateTime waketime) {
                 BookingRow rowBookingRow = ((BookingRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -482,8 +482,8 @@ namespace HotellSavajBooking {
                         null,
                         wake,
                         waketime};
-                if ((parentRoomRowByFK__Booking__room__15502E78 != null)) {
-                    columnValuesArray[5] = parentRoomRowByFK__Booking__room__15502E78[0];
+                if ((parentRoomRowByFK_Booking_ToTable != null)) {
+                    columnValuesArray[5] = parentRoomRowByFK_Booking_ToTable[0];
                 }
                 rowBookingRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowBookingRow);
@@ -546,18 +546,20 @@ namespace HotellSavajBooking {
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
-                this.columnId.AutoIncrementSeed = 1;
+                this.columnId.AutoIncrementSeed = -1;
+                this.columnId.AutoIncrementStep = -1;
                 this.columnId.AllowDBNull = false;
                 this.columnId.ReadOnly = true;
                 this.columnId.Unique = true;
                 this.columnstartdate.AllowDBNull = false;
                 this.columnenddate.AllowDBNull = false;
                 this.columnfirstname.AllowDBNull = false;
-                this.columnfirstname.MaxLength = 20;
+                this.columnfirstname.MaxLength = 10;
                 this.columnlastname.AllowDBNull = false;
-                this.columnlastname.MaxLength = 20;
+                this.columnlastname.MaxLength = 10;
                 this.columnroom.AllowDBNull = false;
                 this.columnwake.AllowDBNull = false;
+                this.columnwaketime.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1067,12 +1069,7 @@ namespace HotellSavajBooking {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public System.DateTime waketime {
                 get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tableBooking.waketimeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'waketime\' in table \'Booking\' is DBNull.", e);
-                    }
+                    return ((global::System.DateTime)(this[this.tableBooking.waketimeColumn]));
                 }
                 set {
                     this[this.tableBooking.waketimeColumn] = value;
@@ -1083,23 +1080,11 @@ namespace HotellSavajBooking {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public RoomRow RoomRow {
                 get {
-                    return ((RoomRow)(this.GetParentRow(this.Table.ParentRelations["FK__Booking__room__15502E78"])));
+                    return ((RoomRow)(this.GetParentRow(this.Table.ParentRelations["FK_Booking_ToTable"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK__Booking__room__15502E78"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Booking_ToTable"]);
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IswaketimeNull() {
-                return this.IsNull(this.tableBooking.waketimeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetwaketimeNull() {
-                this[this.tableBooking.waketimeColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1153,11 +1138,11 @@ namespace HotellSavajBooking {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public BookingRow[] GetBookingRows() {
-                if ((this.Table.ChildRelations["FK__Booking__room__15502E78"] == null)) {
+                if ((this.Table.ChildRelations["FK_Booking_ToTable"] == null)) {
                     return new BookingRow[0];
                 }
                 else {
-                    return ((BookingRow[])(base.GetChildRows(this.Table.ChildRelations["FK__Booking__room__15502E78"])));
+                    return ((BookingRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Booking_ToTable"])));
                 }
             }
         }
@@ -1366,16 +1351,15 @@ namespace HotellSavajBooking.HotSavDBDataSetTableAdapters {
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Booking] WHERE (([Id] = @Original_Id) AND ([startdate] = @Original_startdate) AND ([enddate] = @Original_enddate) AND ([firstname] = @Original_firstname) AND ([lastname] = @Original_lastname) AND ([room] = @Original_room) AND ([wake] = @Original_wake) AND ((@IsNull_waketime = 1 AND [waketime] IS NULL) OR ([waketime] = @Original_waketime)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Booking] WHERE (([Id] = @Original_Id) AND ([startdate] = @Original_startdate) AND ([enddate] = @Original_enddate) AND ([firstname] = @Original_firstname) AND ([lastname] = @Original_lastname) AND ([room] = @Original_room) AND ([wake] = @Original_wake) AND ([waketime] = @Original_waketime))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_startdate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "startdate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_enddate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "enddate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_firstname", global::System.Data.SqlDbType.Char, 0, global::System.Data.ParameterDirection.Input, 0, 0, "firstname", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_firstname", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "firstname", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_lastname", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "lastname", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_room", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "room", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_wake", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "wake", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_waketime", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "waketime", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_waketime", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "waketime", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
@@ -1384,19 +1368,19 @@ SELECT Id, startdate, enddate, firstname, lastname, room, wake, waketime FROM Bo
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@startdate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "startdate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@enddate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "enddate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@firstname", global::System.Data.SqlDbType.Char, 0, global::System.Data.ParameterDirection.Input, 0, 0, "firstname", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@firstname", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "firstname", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@lastname", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "lastname", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@room", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "room", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@wake", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "wake", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@waketime", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "waketime", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Booking] SET [startdate] = @startdate, [enddate] = @enddate, [firstname] = @firstname, [lastname] = @lastname, [room] = @room, [wake] = @wake, [waketime] = @waketime WHERE (([Id] = @Original_Id) AND ([startdate] = @Original_startdate) AND ([enddate] = @Original_enddate) AND ([firstname] = @Original_firstname) AND ([lastname] = @Original_lastname) AND ([room] = @Original_room) AND ([wake] = @Original_wake) AND ((@IsNull_waketime = 1 AND [waketime] IS NULL) OR ([waketime] = @Original_waketime)));
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Booking] SET [startdate] = @startdate, [enddate] = @enddate, [firstname] = @firstname, [lastname] = @lastname, [room] = @room, [wake] = @wake, [waketime] = @waketime WHERE (([Id] = @Original_Id) AND ([startdate] = @Original_startdate) AND ([enddate] = @Original_enddate) AND ([firstname] = @Original_firstname) AND ([lastname] = @Original_lastname) AND ([room] = @Original_room) AND ([wake] = @Original_wake) AND ([waketime] = @Original_waketime));
 SELECT Id, startdate, enddate, firstname, lastname, room, wake, waketime FROM Booking WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@startdate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "startdate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@enddate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "enddate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@firstname", global::System.Data.SqlDbType.Char, 0, global::System.Data.ParameterDirection.Input, 0, 0, "firstname", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@firstname", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "firstname", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@lastname", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "lastname", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@room", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "room", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@wake", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "wake", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1404,11 +1388,10 @@ SELECT Id, startdate, enddate, firstname, lastname, room, wake, waketime FROM Bo
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_startdate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "startdate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_enddate", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "enddate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_firstname", global::System.Data.SqlDbType.Char, 0, global::System.Data.ParameterDirection.Input, 0, 0, "firstname", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_firstname", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "firstname", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_lastname", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "lastname", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_room", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "room", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_wake", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "wake", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_waketime", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "waketime", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_waketime", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "waketime", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
@@ -1488,7 +1471,7 @@ SELECT Id, startdate, enddate, firstname, lastname, room, wake, waketime FROM Bo
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id, System.DateTime Original_startdate, System.DateTime Original_enddate, string Original_firstname, string Original_lastname, int Original_room, bool Original_wake, global::System.Nullable<global::System.DateTime> Original_waketime) {
+        public virtual int Delete(int Original_Id, System.DateTime Original_startdate, System.DateTime Original_enddate, string Original_firstname, string Original_lastname, int Original_room, bool Original_wake, System.DateTime Original_waketime) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((System.DateTime)(Original_startdate));
             this.Adapter.DeleteCommand.Parameters[2].Value = ((System.DateTime)(Original_enddate));
@@ -1506,14 +1489,7 @@ SELECT Id, startdate, enddate, firstname, lastname, room, wake, waketime FROM Bo
             }
             this.Adapter.DeleteCommand.Parameters[5].Value = ((int)(Original_room));
             this.Adapter.DeleteCommand.Parameters[6].Value = ((bool)(Original_wake));
-            if ((Original_waketime.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[8].Value = ((System.DateTime)(Original_waketime.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.DeleteCommand.Parameters[7].Value = ((System.DateTime)(Original_waketime));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1534,7 +1510,7 @@ SELECT Id, startdate, enddate, firstname, lastname, room, wake, waketime FROM Bo
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(System.DateTime startdate, System.DateTime enddate, string firstname, string lastname, int room, bool wake, global::System.Nullable<global::System.DateTime> waketime) {
+        public virtual int Insert(System.DateTime startdate, System.DateTime enddate, string firstname, string lastname, int room, bool wake, System.DateTime waketime) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((System.DateTime)(startdate));
             this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(enddate));
             if ((firstname == null)) {
@@ -1551,12 +1527,7 @@ SELECT Id, startdate, enddate, firstname, lastname, room, wake, waketime FROM Bo
             }
             this.Adapter.InsertCommand.Parameters[4].Value = ((int)(room));
             this.Adapter.InsertCommand.Parameters[5].Value = ((bool)(wake));
-            if ((waketime.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((System.DateTime)(waketime.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.InsertCommand.Parameters[6].Value = ((System.DateTime)(waketime));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1584,7 +1555,7 @@ SELECT Id, startdate, enddate, firstname, lastname, room, wake, waketime FROM Bo
                     string lastname, 
                     int room, 
                     bool wake, 
-                    global::System.Nullable<global::System.DateTime> waketime, 
+                    System.DateTime waketime, 
                     int Original_Id, 
                     System.DateTime Original_startdate, 
                     System.DateTime Original_enddate, 
@@ -1592,7 +1563,7 @@ SELECT Id, startdate, enddate, firstname, lastname, room, wake, waketime FROM Bo
                     string Original_lastname, 
                     int Original_room, 
                     bool Original_wake, 
-                    global::System.Nullable<global::System.DateTime> Original_waketime, 
+                    System.DateTime Original_waketime, 
                     int Id) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((System.DateTime)(startdate));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(enddate));
@@ -1610,12 +1581,7 @@ SELECT Id, startdate, enddate, firstname, lastname, room, wake, waketime FROM Bo
             }
             this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(room));
             this.Adapter.UpdateCommand.Parameters[5].Value = ((bool)(wake));
-            if ((waketime.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(waketime.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(waketime));
             this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Id));
             this.Adapter.UpdateCommand.Parameters[8].Value = ((System.DateTime)(Original_startdate));
             this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(Original_enddate));
@@ -1633,15 +1599,8 @@ SELECT Id, startdate, enddate, firstname, lastname, room, wake, waketime FROM Bo
             }
             this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_room));
             this.Adapter.UpdateCommand.Parameters[13].Value = ((bool)(Original_wake));
-            if ((Original_waketime.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((System.DateTime)(Original_waketime.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[16].Value = ((int)(Id));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((System.DateTime)(Original_waketime));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -1662,7 +1621,7 @@ SELECT Id, startdate, enddate, firstname, lastname, room, wake, waketime FROM Bo
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(System.DateTime startdate, System.DateTime enddate, string firstname, string lastname, int room, bool wake, global::System.Nullable<global::System.DateTime> waketime, int Original_Id, System.DateTime Original_startdate, System.DateTime Original_enddate, string Original_firstname, string Original_lastname, int Original_room, bool Original_wake, global::System.Nullable<global::System.DateTime> Original_waketime) {
+        public virtual int Update(System.DateTime startdate, System.DateTime enddate, string firstname, string lastname, int room, bool wake, System.DateTime waketime, int Original_Id, System.DateTime Original_startdate, System.DateTime Original_enddate, string Original_firstname, string Original_lastname, int Original_room, bool Original_wake, System.DateTime Original_waketime) {
             return this.Update(startdate, enddate, firstname, lastname, room, wake, waketime, Original_Id, Original_startdate, Original_enddate, Original_firstname, Original_lastname, Original_room, Original_wake, Original_waketime, Original_Id);
         }
     }

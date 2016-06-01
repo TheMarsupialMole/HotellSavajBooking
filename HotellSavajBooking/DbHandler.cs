@@ -17,19 +17,19 @@ namespace HotellSavajBooking
     /// </summary>
     class DbHandler
     {
+        private string connectionString =
+                 Properties.Settings.Default.HotSavDBConnectionString;
         //The method return all available rooms based on the parameters provided
         public ArrayList GetAvailableRooms(DateTime start, DateTime end, int typeOfRoom, bool miniBar)
         {
             ArrayList tmplist = new ArrayList();
             int mb = Convert.ToInt32(miniBar);
-            string connectionString =
-                 HotellSavajBooking.Properties.Settings.Default.HotSavDBConnectionString;
 
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
             SqlCommand comm = new SqlCommand("SELECT Room.id from Room WHERE Room.id NOT IN (SELECT Room.id FROM Room inner join Booking on Room.Id = Booking.room WHERE '" +
              start + "' BETWEEN Booking.startdate AND Booking.enddate) AND Room.id NOT IN (SELECT Room.id FROM Room inner join Booking on Room.Id = Booking.room WHERE '" +
-             end + "' BETWEEN Booking.startdate AND Booking.enddate) AND Room.id IN (SELECT Room.id from Room WHERE Room.roomtype = " + typeOfRoom + " AND Room.minibar = " +
+             end.AddDays(-1) + "' BETWEEN Booking.startdate AND Booking.enddate) AND Room.id IN (SELECT Room.id from Room WHERE Room.roomtype = " + typeOfRoom + " AND Room.minibar = " +
              mb + ")", con);
 
             using (SqlDataReader reader = comm.ExecuteReader())
@@ -48,10 +48,7 @@ namespace HotellSavajBooking
         public Booking GetBooking(int bookingNr)
         {
             ArrayList tmplist = new ArrayList();
-            
-            string connectionString =
-                HotellSavajBooking.Properties.Settings.Default.HotSavDBConnectionString;
-
+   
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
             SqlCommand comm = new SqlCommand("SELECT * from Booking WHERE Booking.Id = " + 
@@ -78,25 +75,35 @@ namespace HotellSavajBooking
 
         public bool InsertBooking(Booking booking)
         {
+             using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                //SqlCommand comm = new SqlCommand("INSERT INTO [Booking](@sd, @ed, @fn, @ln, @rn, @w, @wt)", con);
+                SqlCommand comm = new SqlCommand("INSERT INTO Booking(startdate, enddate, firstname, lastname, room, wake, waketime) values (@sd, @ed, @fn, @ln, @rn, @w, @wt)", con);
+                    comm.Parameters.Add("@sd", SqlDbType.DateTime).Value = booking.Startime;
+                    comm.Parameters.Add("@ed", SqlDbType.DateTime).Value = booking.EndTime;
+                    comm.Parameters.Add("@fn", SqlDbType.NChar).Value = booking.FirstName;
+                    comm.Parameters.Add("@ln", SqlDbType.NChar).Value = booking.LastName;
+                    comm.Parameters.Add("@rn", SqlDbType.Int).Value = booking.BookedId;
+                    comm.Parameters.Add("@w", SqlDbType.Bit).Value = booking.WakeUp;
+                    comm.Parameters.Add("@wt", SqlDbType.DateTime).Value = booking.WakeTime;
+                //"INSERT INTO dbo.Booking (startdate, enddate, firstname, lastname, room, wake, waketime) " +
+                //" VALUES ('" + booking.Startime + "', '" + booking.EndTime + "', '" + booking.FirstName + "', '"
+                //+ booking.LastName + "', " + booking.BookedId + ", " + 0 + ", '" + booking.WakeTime + "')", con);
 
-            string connectionString =
-                HotellSavajBooking.Properties.Settings.Default.HotSavDBConnectionString;
+                try
+                {
 
-            //var s = start.ToShortDateString();
-            SqlConnection con = new SqlConnection(connectionString);
-            con.Open();
-            SqlCommand comm = new SqlCommand("INSERT INTO Booking (startdate, enddate, firstname, lastname, room, wake, waketime) " +
-                " VALUES ('"+ booking.Startime + "', '" + booking.EndTime + "', '" + booking.FirstName + "', '" 
-                + booking.LastName + "', " + booking.BookedId + ", '" + booking.WakeUp + "', '" + booking.WakeTime + "')", con);
-
-            
-            bool success =  Convert.ToBoolean(comm.ExecuteNonQuery());
-            Console.Write(success);
-            con.Close();
-
-            return success;
-
-
+                    con.Open();
+                    Object success = comm.ExecuteNonQuery();
+                    con.Close();
+                    System.Windows.Forms.MessageBox.Show("inserted", "true");
+                }
+            catch
+            {
+                System.Windows.Forms.MessageBox.Show("inserted", "false");
+            }
+            return Convert.ToBoolean(true);
+        }
         }
     }
 }
