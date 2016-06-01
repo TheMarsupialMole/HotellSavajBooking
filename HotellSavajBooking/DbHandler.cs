@@ -17,21 +17,26 @@ namespace HotellSavajBooking
     /// </summary>
     class DbHandler
     {
+        //string used for connectiong to the database
         private string connectionString =
                  Properties.Settings.Default.HotSavDBConnectionString;
         //The method return all available rooms based on the parameters provided
         public ArrayList GetAvailableRooms(DateTime start, DateTime end, int typeOfRoom, bool miniBar)
         {
             ArrayList tmplist = new ArrayList();
-            int mb = Convert.ToInt32(miniBar);
 
             SqlConnection con = new SqlConnection(connectionString);
-            con.Open();
-            SqlCommand comm = new SqlCommand("SELECT Room.id from Room WHERE Room.id NOT IN (SELECT Room.id FROM Room inner join Booking on Room.Id = Booking.room WHERE '" +
-             start + "' BETWEEN Booking.startdate AND Booking.enddate) AND Room.id NOT IN (SELECT Room.id FROM Room inner join Booking on Room.Id = Booking.room WHERE '" +
-             end.AddDays(-1) + "' BETWEEN Booking.startdate AND Booking.enddate) AND Room.id IN (SELECT Room.id from Room WHERE Room.roomtype = " + typeOfRoom + " AND Room.minibar = " +
-             mb + ")", con);
+            SqlCommand comm = new SqlCommand("SELECT Room.id from Room WHERE Room.id NOT IN (SELECT Room.id FROM Room inner join Booking on Room.Id = Booking.room WHERE " +
+            "@start BETWEEN Booking.startdate AND Booking.enddate) AND Room.id NOT IN (SELECT Room.id FROM Room inner join Booking on Room.Id = Booking.room WHERE " +
+            "@end BETWEEN Booking.startdate AND Booking.enddate) AND Room.id IN (SELECT Room.id from Room WHERE Room.roomtype = @typeOfRoom AND Room.minibar = " +
+            "@miniBar)", con);
 
+            comm.Parameters.Add("@start", SqlDbType.DateTime).Value = start;
+            comm.Parameters.Add("@end", SqlDbType.DateTime).Value = end.AddDays(-1);
+            comm.Parameters.Add("@typeOfRoom", SqlDbType.Int).Value = typeOfRoom;
+            comm.Parameters.Add("@miniBar", SqlDbType.Bit).Value = miniBar;
+
+            con.Open();
             using (SqlDataReader reader = comm.ExecuteReader())
             {
                 while (reader.Read())
@@ -39,7 +44,6 @@ namespace HotellSavajBooking
                     tmplist.Add(reader.GetInt32(0));
                 }
             }
-
             con.Close();
 
             return tmplist;
@@ -50,9 +54,12 @@ namespace HotellSavajBooking
             ArrayList tmplist = new ArrayList();
    
             SqlConnection con = new SqlConnection(connectionString);
+            
+            SqlCommand comm = new SqlCommand("SELECT * from Booking WHERE Booking.Id = @id", con);
+
+            comm.Parameters.Add("@id", SqlDbType.Int).Value = bookingNr;
+
             con.Open();
-            SqlCommand comm = new SqlCommand("SELECT * from Booking WHERE Booking.Id = " + 
-                bookingNr + "", con);
             using (SqlDataReader reader = comm.ExecuteReader())
             {
                 while (reader.Read())
@@ -67,8 +74,6 @@ namespace HotellSavajBooking
                     tmplist.Add(reader.GetDateTime(7));
                 }
             }
-
-
             con.Close();
             return new Booking((DateTime)tmplist[1], (DateTime)tmplist[2], (string)tmplist[3], (string)tmplist[4], (int)tmplist[5], (bool)tmplist[6], (DateTime)tmplist[7]);     
         }
