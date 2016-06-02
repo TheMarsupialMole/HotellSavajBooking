@@ -97,7 +97,7 @@
             this.btnSearchRoom.TabIndex = 8;
             this.btnSearchRoom.Text = "Search for available rooms";
             this.btnSearchRoom.UseVisualStyleBackColor = true;
-            this.btnSearchRoom.Click += new System.EventHandler(this.button1_Click);
+            this.btnSearchRoom.Click += new System.EventHandler(this.btnSearchRoom_Click);
             // 
             // dtpWakeupTime
             // 

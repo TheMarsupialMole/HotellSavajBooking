@@ -1,34 +1,43 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HotellSavajBooking
 {
+    /// <summary>
+    /// This class is for the For that handles the booking System. The user enters the values needed 
+    /// for a search and gets a list of available rooms. The user can then book the selected room in the list.
+    /// The Foorm also has an option of changing som of the booking data. 
+    /// </summary>
     public partial class BookingForm : Form
     {
+        // Instance of the DBHandler
         private readonly DbHandler _dbHandler = new DbHandler();
+        // An arraylist for storing the rooms that ar being searched
         private ArrayList _roomList = new ArrayList();
 
+        /// <summary>
+        /// Default constructor that initializes the components
+        /// </summary>
         public BookingForm()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Method that executes when the form loads and initiates the Gui-
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="e">the event arguments</param>
         private void Form1_Load(object sender, EventArgs e)
         {
             InitializeGui();
-            Booking b1 = new Booking(DateTime.Today, DateTime.Today, "Radde", "Mojsovski", 1, true, DateTime.UtcNow);
-            Booking b2 = new Booking(DateTime.Today, DateTime.Today, "Radde", "Mojsovski", 1, true, DateTime.UtcNow);
-            Console.WriteLine(b1.Equals(b2));
         }
 
+        /// <summary>
+        /// Method for initializing the Gui.
+        /// </summary>
         private void InitializeGui()
         {
             foreach (string str in Enum.GetNames(typeof(RoomType)))
@@ -39,12 +48,22 @@ namespace HotellSavajBooking
             btnBookRoom.Enabled = false;
         }
 
+        /// <summary>
+        /// Event handler that executes when the checkbox for wake up call is changed
+        /// </summary>
+        /// <param name="sender">the sender object</param>
+        /// <param name="e">the event arguments</param>
         private void checkWakeupCall_CheckedChanged(object sender, EventArgs e)
         {
             dtpWakeupTime.Enabled = checkWakeupCall.Checked;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Event handler for the search room button.
+        /// </summary>
+        /// <param name="sender">the sender object</param>
+        /// <param name="e">the event arguments</param>
+        private void btnSearchRoom_Click(object sender, EventArgs e)
         {
 
             _roomList = _dbHandler.GetAvailableRooms(dtpStartDate.Value, dtpEndDate.Value, cbTypOfRoom.SelectedIndex, checkMinibar.Checked);
@@ -52,6 +71,11 @@ namespace HotellSavajBooking
             listAvailableRooms.Items.AddRange(_roomList.ToArray());
         }
 
+
+        /// <summary>
+        /// Method that validates the form before it is posible to make a booking.
+        /// </summary>
+        /// <returns>Boolean for correct information in form</returns>
         private bool ValidateForm()
         {
             if (tbFirstName.Text.Equals(""))
@@ -67,6 +91,11 @@ namespace HotellSavajBooking
             return true;
         }
 
+        /// <summary>
+        ///  Event handler for when the Form is about to close. It makes the user confirm the action.
+        /// </summary>
+        /// <param name="sender">the sender object</param>
+        /// <param name="e">event arguments</param>
         private void BookingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult result = MessageBox.Show("Your exiting the program.", "Are you sure?",
@@ -74,11 +103,21 @@ namespace HotellSavajBooking
             if (result == DialogResult.Cancel) e.Cancel = true;
         }
 
+        /// <summary>
+        /// Event handler for when the datetimepicker for start date changes value to clear the search list.
+        /// </summary>
+        /// <param name="sender">the sender object</param>
+        /// <param name="e">the event arguments</param>
         private void dtpStartDate_ValueChanged(object sender, EventArgs e)
         {
             ClearSearch();
         }
 
+        /// <summary>
+        /// Event handler for when the datetimepicker for end date changes value to clear the search list.
+        /// </summary>
+        /// <param name="sender">the sender object</param>
+        /// <param name="e">the event arguments</param>
         private void dtpEndDate_ValueChanged(object sender, EventArgs e)
         {
             ClearSearch();
@@ -146,7 +185,7 @@ namespace HotellSavajBooking
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            new EditForm().Show();
+            new EditForm().ShowDialog();
         }
 
         private void ResetInputFields()
