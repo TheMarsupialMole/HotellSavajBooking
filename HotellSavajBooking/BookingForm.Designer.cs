@@ -176,6 +176,7 @@
             this.checkMinibar.TabIndex = 5;
             this.checkMinibar.Text = "Yes";
             this.checkMinibar.UseVisualStyleBackColor = true;
+            this.checkMinibar.CheckedChanged += new System.EventHandler(this.checkMinibar_CheckedChanged);
             // 
             // label5
             // 

@@ -134,6 +134,9 @@ namespace HotellSavajBooking
             }
         }
 
-
+        private void checkMinibar_CheckedChanged(object sender, EventArgs e)
+        {
+            ClearSearch();
+        }
     }
 }
