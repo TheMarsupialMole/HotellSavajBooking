@@ -37,9 +37,9 @@ namespace HotellSavajBooking
         {
             currentBooking = b;
             validPost = true;
-            txtFirstName.Text = "  "+ b.FirstName;
-            txtLastName.Text = "  " + b.LastName;
-            txtRoomNumber.Text = "  " + b.BookedId;
+            txtFirstName.Text = String.Empty + b.FirstName;
+            txtLastName.Text = String.Empty + b.LastName;
+            txtRoomNumber.Text = String.Empty + b.BookedId;
             chkBWake.Checked = (b.WakeUp);
             dntPickerWake.Value = b.WakeTime;
             dntPickerStart.Value = b.Startime;
@@ -119,7 +119,14 @@ namespace HotellSavajBooking
                     txtLastName.Text, o, chkBWake.Checked, dntPickerWake.Value);
 
                 if (!edited.Equals(currentBooking))
-                    dbHandler.UpdatePost(edited);
+                {
+                    DialogResult dr = MessageBox.Show(this, "Are you sure?", "Update post?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    if (dr == DialogResult.OK)
+                    {
+                        if(dbHandler.UpdatePost(edited) == 1);
+                            ResetValues();
+                    }
+                }
                 else
                     MessageBox.Show(this, "Nothing changed", "Unchanged Post");
             }
