@@ -120,8 +120,11 @@
             // 
             // dntPickerWake
             // 
+            this.dntPickerWake.CustomFormat = "HH:mm";
+            this.dntPickerWake.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dntPickerWake.Location = new System.Drawing.Point(147, 347);
             this.dntPickerWake.Name = "dntPickerWake";
+            this.dntPickerWake.ShowUpDown = true;
             this.dntPickerWake.Size = new System.Drawing.Size(201, 26);
             this.dntPickerWake.TabIndex = 22;
             // 
@@ -251,6 +254,7 @@
             // 
             // dntPickerend
             // 
+            this.dntPickerend.Enabled = false;
             this.dntPickerend.Location = new System.Drawing.Point(147, 97);
             this.dntPickerend.Name = "dntPickerend";
             this.dntPickerend.Size = new System.Drawing.Size(201, 26);
@@ -258,6 +262,7 @@
             // 
             // dntPickerStart
             // 
+            this.dntPickerStart.Enabled = false;
             this.dntPickerStart.Location = new System.Drawing.Point(147, 47);
             this.dntPickerStart.Name = "dntPickerStart";
             this.dntPickerStart.Size = new System.Drawing.Size(201, 26);

@@ -100,12 +100,13 @@ namespace HotellSavajBooking
                 return null;  
         }
 
-        internal void UpdatePost(Booking booking)
+        internal int UpdatePost(Booking booking)
         {
+            int result = 0;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                SqlCommand comm = new SqlCommand("UPDATE Booking(startdate, enddate, firstname, lastname, room, wake, waketime) values (@sd, @ed, @fn, @ln, @rn, @w, @wt) WHERE "+
-                    "Booking.startdate = @sd AND Booking.room = @rn", con);
+                SqlCommand comm = new SqlCommand("UPDATE Booking SET firstname=@fn, lastname=@ln, wake=@w, waketime=@wt" +
+                    " WHERE Booking.startdate = @sd AND Booking.room = @rn", con);
                 comm.Parameters.Add("@sd", SqlDbType.DateTime).Value = booking.Startime;
                 comm.Parameters.Add("@ed", SqlDbType.DateTime).Value = booking.EndTime;
                 comm.Parameters.Add("@fn", SqlDbType.NChar).Value = booking.FirstName;
@@ -116,7 +117,7 @@ namespace HotellSavajBooking
                 try
                 {
                     con.Open();
-                    comm.ExecuteNonQuery();
+                    result = comm.ExecuteNonQuery();
                     System.Windows.Forms.MessageBox.Show("updated", "true");
                 }
                 catch
@@ -127,7 +128,7 @@ namespace HotellSavajBooking
                 {
                     con.Close();
                 }
-
+                return result;
             }
         }
 
