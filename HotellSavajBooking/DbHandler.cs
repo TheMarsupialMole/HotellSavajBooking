@@ -107,10 +107,10 @@ namespace HotellSavajBooking
 
         public int InsertBooking(Booking booking)
         {
-            int success = -1;
+            Int32 newId = -1;
              using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                SqlCommand comm = new SqlCommand("INSERT INTO Booking(startdate, enddate, firstname, lastname, room, wake, waketime) values (@sd, @ed, @fn, @ln, @rn, @w, @wt)", con);
+                SqlCommand comm = new SqlCommand("INSERT INTO Booking(startdate, enddate, firstname, lastname, room, wake, waketime) OUTPUT INSERTED.ID values (@sd, @ed, @fn, @ln, @rn, @w, @wt); SELECT NewID = SCOPE_IDENTITY();", con);
                     comm.Parameters.Add("@sd", SqlDbType.DateTime).Value = booking.Startime;
                     comm.Parameters.Add("@ed", SqlDbType.DateTime).Value = booking.EndTime;
                     comm.Parameters.Add("@fn", SqlDbType.NChar).Value = booking.FirstName;
@@ -120,17 +120,21 @@ namespace HotellSavajBooking
                     comm.Parameters.Add("@wt", SqlDbType.DateTime).Value = booking.WakeTime;
                 try
                 {
-
                     con.Open();
-                    success = (int)comm.ExecuteScalar();
-                    con.Close();
+                    newId = (Int32)comm.ExecuteScalar();
                     System.Windows.Forms.MessageBox.Show("inserted", "true");
                 }
                 catch
                 {
                     System.Windows.Forms.MessageBox.Show("inserted", "false");
                 }
-                return success;
+                finally
+                {
+                    con.Close();
+                }
+
+
+                return newId;
             }
         }
     }
