@@ -10,32 +10,24 @@ using System.Windows.Forms;
 
 namespace HotellSavajBooking
 {
+    /// <summary>
+    /// Class written by Ted Malmgren
+    /// 
+    /// The class hadles the editing or removal of a booking
+    /// </summary>
     public partial class EditForm : Form
     {
-        private DbHandler db = new DbHandler();
+        private DbHandler dbHandler;
+        private bool validPost = false;
+
+
+        /// <summary>
+        /// Constructor for the class
+        /// </summary>
         public EditForm()
         {
-            InitializeComponent();       
-            DateTime dts = DateTime.Parse("2016-02-12");
-            DateTime dte = DateTime.Parse("2016-02-12");
-            db.GetAvailableRooms(dts, dte, 0, false);
-        }
-
-        private void bookingBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.bookingBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.hotSavDBDataSet);
-
-        }
-
-        private void Editform_Load(object sender, EventArgs e)
-        {
-            // TODO: This line of code loads data into the 'hotSavDBDataSet.Room' table. You can move, or remove it, as needed.
-            this.roomTableAdapter.Fill(this.hotSavDBDataSet.Room);
-            // TODO: This line of code loads data into the 'hotSavDBDataSet.Booking' table. You can move, or remove it, as needed.
-            this.bookingTableAdapter.Fill(this.hotSavDBDataSet.Booking);
-
+            InitializeComponent();
+            dbHandler = new DbHandler();    
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -44,15 +36,39 @@ namespace HotellSavajBooking
             {
                 int bnr;
                 int.TryParse(txtBookingNr.Text, out bnr);
-                Booking b = db.GetBooking(bnr);
-                PopulateWindow(b);
+                Booking b = dbHandler.GetBooking(bnr);
+                if (b != null)
+                    PopulateWindow(b);
+                else
+                {
+                    ResetValues();
+                    System.Windows.Forms.MessageBox.Show("Booking with this number doesn't exist", "Error");
+                }
             }
         }
 
         private void PopulateWindow(Booking b)
         {
-            txtFirstName.Text = "  "+ b.BookedId;
-            Console.Write("hej");
+            validPost = true;
+            txtFirstName.Text = "  "+ b.FirstName;
+            txtLastName.Text = "  " + b.LastName;
+            txtRoomNumber.Text = "  " + b.BookedId;
+            chkBWake.Checked = (b.WakeUp);
+            dntPickerWake.Value = b.WakeTime;
+            dntPickerStart.Value = b.Startime;
+            dntPickerend.Value = b.EndTime;
+        }
+
+        private void ResetValues()
+        {
+            validPost = false;
+            txtFirstName.Text = string.Empty;
+            txtLastName.Text = string.Empty;
+            txtRoomNumber.Text = string.Empty;
+            chkBWake.Checked = (false);
+            dntPickerWake.Value = DateTime.Now;
+            dntPickerStart.Value = DateTime.Now;
+            dntPickerend.Value = DateTime.Now;
         }
 
         private bool ValidateBookingNumber()
@@ -63,6 +79,34 @@ namespace HotellSavajBooking
             }
             else
                 return false;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void EditForm_FormClosing(Object sender, FormClosingEventArgs e)
+        {
+            DialogResult dr = MessageBox.Show(this, "Are you sure?", "Exit", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            if (dr == DialogResult.Cancel)
+                e.Cancel = true;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (validPost == true)
+            {
+                DialogResult dr = MessageBox.Show(this, "Are you sure?", "Delete post?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if (dr == DialogResult.OK)
+                {
+                    int bnr;
+                    int.TryParse(txtBookingNr.Text, out bnr);
+                    int del = dbHandler.DeletePost(bnr);
+                    ResetValues();
+                }
+            }
+            
         }
     }
 }

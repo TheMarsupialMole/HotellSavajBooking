@@ -75,14 +75,41 @@ namespace HotellSavajBooking
                 }
             }
             con.Close();
-            return new Booking((DateTime)tmplist[1], (DateTime)tmplist[2], (string)tmplist[3], (string)tmplist[4], (int)tmplist[5], (bool)tmplist[6], (DateTime)tmplist[7]);     
+            if (tmplist.Count != 0)
+                return new Booking((DateTime)tmplist[1], (DateTime)tmplist[2], (string)tmplist[3], (string)tmplist[4], (int)tmplist[5], (bool)tmplist[6], (DateTime)tmplist[7]);
+            else
+                return null;  
         }
 
-        public bool InsertBooking(Booking booking)
+        public int DeletePost(int bnr)
         {
+            int success = -1;
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand comm = new SqlCommand("DELETE FROM Booking WHERE Id = @id", con);
+                comm.Parameters.Add("@id", SqlDbType.Int).Value = bnr;
+      
+                try
+                {
+                    con.Open();
+                    success = comm.ExecuteNonQuery(); 
+                    con.Close();
+                    System.Windows.Forms.MessageBox.Show("Deleted", "Deleted");
+                }
+                catch
+                {
+                    System.Windows.Forms.MessageBox.Show("Deleted", "Failed");
+                }
+                return success;
+            }
+        }
+    
+
+        public int InsertBooking(Booking booking)
+        {
+            int success = -1;
              using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                //SqlCommand comm = new SqlCommand("INSERT INTO [Booking](@sd, @ed, @fn, @ln, @rn, @w, @wt)", con);
                 SqlCommand comm = new SqlCommand("INSERT INTO Booking(startdate, enddate, firstname, lastname, room, wake, waketime) values (@sd, @ed, @fn, @ln, @rn, @w, @wt)", con);
                     comm.Parameters.Add("@sd", SqlDbType.DateTime).Value = booking.Startime;
                     comm.Parameters.Add("@ed", SqlDbType.DateTime).Value = booking.EndTime;
@@ -91,24 +118,20 @@ namespace HotellSavajBooking
                     comm.Parameters.Add("@rn", SqlDbType.Int).Value = booking.BookedId;
                     comm.Parameters.Add("@w", SqlDbType.Bit).Value = booking.WakeUp;
                     comm.Parameters.Add("@wt", SqlDbType.DateTime).Value = booking.WakeTime;
-                //"INSERT INTO dbo.Booking (startdate, enddate, firstname, lastname, room, wake, waketime) " +
-                //" VALUES ('" + booking.Startime + "', '" + booking.EndTime + "', '" + booking.FirstName + "', '"
-                //+ booking.LastName + "', " + booking.BookedId + ", " + 0 + ", '" + booking.WakeTime + "')", con);
-
                 try
                 {
 
                     con.Open();
-                    Object success = comm.ExecuteNonQuery();
+                    success = (int)comm.ExecuteScalar();
                     con.Close();
                     System.Windows.Forms.MessageBox.Show("inserted", "true");
                 }
-            catch
-            {
-                System.Windows.Forms.MessageBox.Show("inserted", "false");
+                catch
+                {
+                    System.Windows.Forms.MessageBox.Show("inserted", "false");
+                }
+                return success;
             }
-            return Convert.ToBoolean(true);
-        }
         }
     }
 }
