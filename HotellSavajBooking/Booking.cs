@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace HotellSavajBooking
 {
@@ -112,6 +113,13 @@ namespace HotellSavajBooking
             return _startTime == other._startTime && _endTime == other._endTime && _firstName == other._firstName &&
                    _lastName == other._lastName && _roomId == other._roomId && _wakeUp == other._wakeUp &&
                    _wakeTime == other._wakeTime;
+        }
+
+        public override string ToString()
+        {
+            return Startime.ToString(CultureInfo.CurrentCulture) + " : " + EndTime.ToString(CultureInfo.CurrentCulture) +
+                   " : " + FirstName + " : " + LastName + " : " + _roomId + " : " + WakeUp + " : " +
+                   WakeTime.ToString(CultureInfo.CurrentCulture);
         }
     }
 }
