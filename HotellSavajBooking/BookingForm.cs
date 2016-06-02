@@ -127,7 +127,7 @@ namespace HotellSavajBooking
                     int bookingNumber = _dbHandler.InsertBooking(new Booking(dtpStartDate.Value, dtpEndDate.Value, tbFirstName.Text,
                         tbLastName.Text, roomNumber, checkWakeupCall.Checked, dtpWakeupTime.Value));
 
-                    if (bookingNumber != -1) MessageBox.Show(null, "Ditt rum är bokat!", MessageBoxButtons.OK);
+                    if (bookingNumber != -1) MessageBox.Show(null, string.Format("Your room is booked with booking ID {0}!", bookingNumber), MessageBoxButtons.OK);
                 }
             }
         }
