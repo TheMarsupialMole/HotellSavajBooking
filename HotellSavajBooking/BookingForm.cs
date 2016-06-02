@@ -123,6 +123,11 @@ namespace HotellSavajBooking
             ClearSearch();
         }
 
+        /// <summary>
+        /// Event handler for when the combobox for the room type changes values to clear the search list.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cbTypOfRoom_SelectedIndexChanged(object sender, EventArgs e)
         {
             ClearSearch();
