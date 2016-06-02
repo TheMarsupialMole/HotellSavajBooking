@@ -133,6 +133,8 @@ namespace HotellSavajBooking
         private void cbTypOfRoom_SelectedIndexChanged(object sender, EventArgs e)
         {
             ClearSearch();
+            if (cbTypOfRoom.SelectedIndex == 2) checkMinibar.Checked = true;
+            else checkMinibar.Checked = false;
         }
 
         /// <summary>
