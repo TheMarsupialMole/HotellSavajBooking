@@ -8,7 +8,7 @@ namespace HotellSavajBooking
     /// The class is a container class that holds a specific booking. It contains
     /// a start date, end date and a Room object. 
     /// </summary>
-    public class Booking
+    public class Booking: IEquatable<Booking>
     {
         private DateTime _startTime;
         private DateTime _endTime;
@@ -91,6 +91,13 @@ namespace HotellSavajBooking
         {
             get { return _wakeTime; }
             set { _wakeTime = value; }
+        }
+
+        public bool Equals(Booking other)
+        {
+            return _startTime == other._startTime && _endTime == other._endTime && _firstName == other._firstName &&
+                   _lastName == other._lastName && _roomId == other._roomId && _wakeUp == other._wakeUp &&
+                   _wakeTime == other._wakeTime;
         }
     }
 }
