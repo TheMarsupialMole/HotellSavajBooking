@@ -13,7 +13,7 @@ namespace HotellSavajBooking
 {
     public partial class BookingForm : Form
     {
-        private DbHandler _dbHandler = new DbHandler();
+        private readonly DbHandler _dbHandler = new DbHandler();
         private ArrayList _roomList = new ArrayList();
 
         public BookingForm()
@@ -24,6 +24,9 @@ namespace HotellSavajBooking
         private void Form1_Load(object sender, EventArgs e)
         {
             InitializeGui();
+            Booking b1 = new Booking(DateTime.Today, DateTime.Today, "Radde", "Mojsovski", 1, true, DateTime.UtcNow);
+            Booking b2 = new Booking(DateTime.Today, DateTime.Today, "Radde", "Mojsovski", 1, true, DateTime.UtcNow);
+            Console.WriteLine(b1.Equals(b2));
         }
 
         private void InitializeGui()
