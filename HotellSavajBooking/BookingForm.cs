@@ -139,7 +139,7 @@ namespace HotellSavajBooking
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            new EditForm(_dbHandler).Show();
+            new EditForm().Show();
         }
     }
 }
