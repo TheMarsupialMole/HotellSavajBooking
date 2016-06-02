@@ -19,6 +19,7 @@ namespace HotellSavajBooking
     {
         private DbHandler dbHandler;
         private bool validPost = false;
+        private Booking currentBooking = null;
 
 
         /// <summary>
@@ -30,25 +31,11 @@ namespace HotellSavajBooking
             dbHandler = new DbHandler();    
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (ValidateBookingNumber())
-            {
-                int bnr;
-                int.TryParse(txtBookingNr.Text, out bnr);
-                Booking b = dbHandler.GetBooking(bnr);
-                if (b != null)
-                    PopulateWindow(b);
-                else
-                {
-                    ResetValues();
-                    System.Windows.Forms.MessageBox.Show("Booking with this number doesn't exist", "Error");
-                }
-            }
-        }
+   
 
         private void PopulateWindow(Booking b)
         {
+            currentBooking = b;
             validPost = true;
             txtFirstName.Text = "  "+ b.FirstName;
             txtLastName.Text = "  " + b.LastName;
@@ -61,6 +48,7 @@ namespace HotellSavajBooking
 
         private void ResetValues()
         {
+            currentBooking = null;
             validPost = false;
             txtFirstName.Text = string.Empty;
             txtLastName.Text = string.Empty;
@@ -81,19 +69,30 @@ namespace HotellSavajBooking
                 return false;
         }
 
-        private void button4_Click(object sender, EventArgs e)
+
+        private void btnGo_Click(object sender, EventArgs e)
+        {
+            if (ValidateBookingNumber())
+            {
+                int bnr;
+                int.TryParse(txtBookingNr.Text, out bnr);
+                Booking b = dbHandler.GetBooking(bnr);
+                if (b != null)
+                    PopulateWindow(b);
+                else
+                {
+                    ResetValues();
+                    System.Windows.Forms.MessageBox.Show("Booking with this number doesn't exist", "Error");
+                }
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void EditForm_FormClosing(Object sender, FormClosingEventArgs e)
-        {
-            DialogResult dr = MessageBox.Show(this, "Are you sure?", "Exit", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
-            if (dr == DialogResult.Cancel)
-                e.Cancel = true;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
             if (validPost == true)
             {
@@ -107,6 +106,30 @@ namespace HotellSavajBooking
                 }
             }
             
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if(currentBooking != null)
+            {
+                int o;
+                int.TryParse(txtRoomNumber.Text, out o);
+
+                Booking edited = new Booking(dntPickerStart.Value, dntPickerend.Value, txtFirstName.Text,
+                    txtLastName.Text, o, chkBWake.Checked, dntPickerWake.Value);
+
+                if (!edited.Equals(currentBooking))
+                    dbHandler.UpdatePost(edited);
+                else
+                    MessageBox.Show(this, "Nothing changed", "Unchanged Post");
+            }
+        }
+
+        private void EditForm_FormClosing(Object sender, FormClosingEventArgs e)
+        {
+            DialogResult dr = MessageBox.Show(this, "Are you sure?", "Exit", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            if (dr == DialogResult.Cancel)
+                e.Cancel = true;
         }
     }
 }

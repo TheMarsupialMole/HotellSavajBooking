@@ -40,9 +40,9 @@
             this.chkBWake = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -55,7 +55,7 @@
             this.dntPickerStart = new System.Windows.Forms.DateTimePicker();
             this.txtBookingNr = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnGo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.roomBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hotSavDBDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bookingBindingSource)).BeginInit();
@@ -98,9 +98,9 @@
             this.groupBox1.Controls.Add(this.chkBWake);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.button4);
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.btnCancel);
+            this.groupBox1.Controls.Add(this.btnDelete);
+            this.groupBox1.Controls.Add(this.btnEdit);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
@@ -152,34 +152,35 @@
             this.label7.TabIndex = 19;
             this.label7.Text = "Start Date";
             // 
-            // button4
+            // btnCancel
             // 
-            this.button4.Location = new System.Drawing.Point(269, 400);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(86, 34);
-            this.button4.TabIndex = 18;
-            this.button4.Text = "CANCEL";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btnCancel.Location = new System.Drawing.Point(269, 400);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(86, 34);
+            this.btnCancel.TabIndex = 18;
+            this.btnCancel.Text = "CANCEL";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // button3
+            // btnDelete
             // 
-            this.button3.Location = new System.Drawing.Point(143, 400);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(86, 34);
-            this.button3.TabIndex = 17;
-            this.button3.Text = "DELETE";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnDelete.Location = new System.Drawing.Point(143, 400);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(86, 34);
+            this.btnDelete.TabIndex = 17;
+            this.btnDelete.Text = "DELETE";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
-            // button2
+            // btnEdit
             // 
-            this.button2.Location = new System.Drawing.Point(19, 400);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(86, 34);
-            this.button2.TabIndex = 16;
-            this.button2.Text = "OK";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnEdit.Location = new System.Drawing.Point(19, 400);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(86, 34);
+            this.btnEdit.TabIndex = 16;
+            this.btnEdit.Text = "EDIT";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // label6
             // 
@@ -210,6 +211,7 @@
             // 
             // txtRoomNumber
             // 
+            this.txtRoomNumber.Enabled = false;
             this.txtRoomNumber.Location = new System.Drawing.Point(147, 249);
             this.txtRoomNumber.Name = "txtRoomNumber";
             this.txtRoomNumber.Size = new System.Drawing.Size(205, 26);
@@ -277,22 +279,22 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Enter booking number: ";
             // 
-            // button1
+            // btnGo
             // 
-            this.button1.Location = new System.Drawing.Point(329, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(66, 37);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "GO";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnGo.Location = new System.Drawing.Point(329, 12);
+            this.btnGo.Name = "btnGo";
+            this.btnGo.Size = new System.Drawing.Size(66, 37);
+            this.btnGo.TabIndex = 4;
+            this.btnGo.Text = "GO";
+            this.btnGo.UseVisualStyleBackColor = true;
+            this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
             // 
             // EditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(412, 533);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnGo);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBookingNr);
@@ -320,9 +322,9 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
@@ -337,6 +339,6 @@
         private System.Windows.Forms.CheckBox chkBWake;
         private System.Windows.Forms.TextBox txtBookingNr;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnGo;
     }
 }

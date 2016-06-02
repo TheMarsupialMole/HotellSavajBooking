@@ -36,16 +36,25 @@ namespace HotellSavajBooking
             comm.Parameters.Add("@typeOfRoom", SqlDbType.Int).Value = typeOfRoom;
             comm.Parameters.Add("@miniBar", SqlDbType.Bit).Value = miniBar;
 
-            con.Open();
-            using (SqlDataReader reader = comm.ExecuteReader())
-            {
-                while (reader.Read())
+            try {
+                con.Open();
+                using (SqlDataReader reader = comm.ExecuteReader())
                 {
-                    tmplist.Add(reader.GetInt32(0));
+                    while (reader.Read())
+                    {
+                        tmplist.Add(reader.GetInt32(0));
+                    }
                 }
             }
-            con.Close();
-
+            catch
+            {
+                System.Windows.Forms.MessageBox.Show("Error", "Failed getting posts");
+            }
+            finally
+            {
+                con.Close();
+            }
+            
             return tmplist;
         }
 
@@ -59,26 +68,67 @@ namespace HotellSavajBooking
 
             comm.Parameters.Add("@id", SqlDbType.Int).Value = bookingNr;
 
-            con.Open();
-            using (SqlDataReader reader = comm.ExecuteReader())
-            {
-                while (reader.Read())
+            try {
+                con.Open();
+                using (SqlDataReader reader = comm.ExecuteReader())
                 {
-                    tmplist.Add(reader.GetInt32(0));
-                    tmplist.Add(reader.GetDateTime(1));
-                    tmplist.Add(reader.GetDateTime(2));
-                    tmplist.Add(reader.GetString(3));
-                    tmplist.Add(reader.GetString(4));
-                    tmplist.Add(reader.GetInt32(5));
-                    tmplist.Add(reader.GetBoolean(6));
-                    tmplist.Add(reader.GetDateTime(7));
+                    while (reader.Read())
+                    {
+                        tmplist.Add(reader.GetInt32(0));
+                        tmplist.Add(reader.GetDateTime(1));
+                        tmplist.Add(reader.GetDateTime(2));
+                        tmplist.Add(reader.GetString(3));
+                        tmplist.Add(reader.GetString(4));
+                        tmplist.Add(reader.GetInt32(5));
+                        tmplist.Add(reader.GetBoolean(6));
+                        tmplist.Add(reader.GetDateTime(7));
+                    }
                 }
             }
-            con.Close();
+            catch
+            {
+                System.Windows.Forms.MessageBox.Show("Error", "Failed getting post");
+            }
+            finally
+            {
+                con.Close();
+            }
+            
             if (tmplist.Count != 0)
                 return new Booking((DateTime)tmplist[1], (DateTime)tmplist[2], (string)tmplist[3], (string)tmplist[4], (int)tmplist[5], (bool)tmplist[6], (DateTime)tmplist[7]);
             else
                 return null;  
+        }
+
+        internal void UpdatePost(Booking booking)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand comm = new SqlCommand("UPDATE Booking(startdate, enddate, firstname, lastname, room, wake, waketime) values (@sd, @ed, @fn, @ln, @rn, @w, @wt) WHERE "+
+                    "Booking.startdate = @sd AND Booking.room = @rn", con);
+                comm.Parameters.Add("@sd", SqlDbType.DateTime).Value = booking.Startime;
+                comm.Parameters.Add("@ed", SqlDbType.DateTime).Value = booking.EndTime;
+                comm.Parameters.Add("@fn", SqlDbType.NChar).Value = booking.FirstName;
+                comm.Parameters.Add("@ln", SqlDbType.NChar).Value = booking.LastName;
+                comm.Parameters.Add("@rn", SqlDbType.Int).Value = booking.BookedId;
+                comm.Parameters.Add("@w", SqlDbType.Bit).Value = booking.WakeUp;
+                comm.Parameters.Add("@wt", SqlDbType.DateTime).Value = booking.WakeTime;
+                try
+                {
+                    con.Open();
+                    comm.ExecuteNonQuery();
+                    System.Windows.Forms.MessageBox.Show("updated", "true");
+                }
+                catch
+                {
+                    System.Windows.Forms.MessageBox.Show("updated", "false");
+                }
+                finally
+                {
+                    con.Close();
+                }
+
+            }
         }
 
         public int DeletePost(int bnr)
@@ -92,19 +142,21 @@ namespace HotellSavajBooking
                 try
                 {
                     con.Open();
-                    success = comm.ExecuteNonQuery(); 
-                    con.Close();
+                    success = comm.ExecuteNonQuery();             
                     System.Windows.Forms.MessageBox.Show("Deleted", "Deleted");
                 }
                 catch
                 {
                     System.Windows.Forms.MessageBox.Show("Deleted", "Failed");
                 }
+                finally
+                {
+                    con.Close();
+                }
                 return success;
             }
         }
     
-
         public int InsertBooking(Booking booking)
         {
             Int32 newId = -1;
@@ -132,7 +184,6 @@ namespace HotellSavajBooking
                 {
                     con.Close();
                 }
-
 
                 return newId;
             }
