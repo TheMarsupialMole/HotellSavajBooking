@@ -114,7 +114,11 @@ namespace HotellSavajBooking
                    _lastName == other._lastName && _roomId == other._roomId && _wakeUp == other._wakeUp &&
                    _wakeTime == other._wakeTime;
         }
-
+        
+        /// <summary>
+        /// Overriden tostring method that prints out all the information in a booking.
+        /// </summary>
+        /// <returns>the string with all information</returns>
         public override string ToString()
         {
             return Startime.ToString(CultureInfo.CurrentCulture) + " : " + EndTime.ToString(CultureInfo.CurrentCulture) +

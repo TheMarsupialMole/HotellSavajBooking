@@ -6,6 +6,8 @@ using System.Windows.Forms;
 namespace HotellSavajBooking
 {
     /// <summary>
+    /// Class written by Radovan Mojsovski 
+    /// 
     /// This class is for the For that handles the booking System. The user enters the values needed 
     /// for a search and gets a list of available rooms. The user can then book the selected room in the list.
     /// The Foorm also has an option of changing som of the booking data. 
@@ -133,12 +135,20 @@ namespace HotellSavajBooking
             ClearSearch();
         }
 
+        /// <summary>
+        /// Method for clearing the list och disabeling the booking button
+        /// </summary>
         private void ClearSearch()
         {
             listAvailableRooms.Items.Clear();
             btnBookRoom.Enabled = false;
         }
 
+        /// <summary>
+        /// Eventhandler for when the user selects a listed room and enables the book room button
+        /// </summary>
+        /// <param name="sender">the sender object</param>
+        /// <param name="e">the event arguments</param>
         private void listAvailableRooms_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listAvailableRooms.SelectedIndex > -1)
@@ -147,24 +157,16 @@ namespace HotellSavajBooking
             }
         }
 
+        /// <summary>
+        /// Event handler for the book room button
+        /// </summary>
+        /// <param name="sender">the sender object</param>
+        /// <param name="e">the event arguments</param>
         private void btnBookRoom_Click(object sender, EventArgs e)
         {
             if (ValidateForm())
             {
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine("First name: " + tbFirstName.Text);
-                sb.AppendLine("Last name: " + tbLastName.Text);
-                sb.AppendLine("Room type: " + cbTypOfRoom.Text);
-                sb.AppendLine("Start date: " + dtpStartDate.Text);
-                sb.AppendLine("End date: " + dtpEndDate.Text);
-                string wantMiniBar = checkMinibar.Checked ? "Yes" : "No";
-                sb.AppendLine("Mini bar: " + wantMiniBar);
-                string wantWakeUpCall = checkWakeupCall.Checked ? "Yes" : "No";
-                sb.AppendLine("Wakeup call: " + wantWakeUpCall);
-                if (checkWakeupCall.Checked)
-                {
-                    sb.AppendLine("Wakeup time: " + dtpWakeupTime.Text);
-                }
+                StringBuilder sb = BuildString();
 
                 DialogResult result = MessageBox.Show(sb.ToString(), "Is this information correct?", MessageBoxButtons.OKCancel);
                 if (result == DialogResult.OK)
@@ -183,16 +185,53 @@ namespace HotellSavajBooking
             }
         }
 
+        /// <summary>
+        /// Method that builds the string that gives the user the booking information to confirm.
+        /// </summary>
+        /// <returns>the built string for display</returns>
+        private StringBuilder BuildString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("First name: " + tbFirstName.Text);
+            sb.AppendLine("Last name: " + tbLastName.Text);
+            sb.AppendLine("Room type: " + cbTypOfRoom.Text);
+            sb.AppendLine("Start date: " + dtpStartDate.Text);
+            sb.AppendLine("End date: " + dtpEndDate.Text);
+            string wantMiniBar = checkMinibar.Checked ? "Yes" : "No";
+            sb.AppendLine("Mini bar: " + wantMiniBar);
+            string wantWakeUpCall = checkWakeupCall.Checked ? "Yes" : "No";
+            sb.AppendLine("Wakeup call: " + wantWakeUpCall);
+            if (checkWakeupCall.Checked)
+            {
+                sb.AppendLine("Wakeup time: " + dtpWakeupTime.Text);
+            }
+            return sb;
+        }
+
+        /// <summary>
+        /// Method that checkes if the value is changed for clearing the search
+        /// </summary>
+        /// <param name="sender">the sender object</param>
+        /// <param name="e">the event arguments</param>
         private void checkMinibar_CheckedChanged(object sender, EventArgs e)
         {
             ClearSearch();
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        /// <summary>
+        /// Event handler that opens the edit Form for editing a booking
+        /// </summary>
+        /// <param name="sender">the sender object</param>
+        /// <param name="e">the event arguments</param>
+        private void EditFormButton_Click(object sender, EventArgs e)
         {
             new EditForm().ShowDialog();
         }
 
+        /// <summary>
+        /// Method that clears all textfields and resets the values in comboboxes and 
+        /// dateTimePickers
+        /// </summary>
         private void ResetInputFields()
         {
             tbFirstName.Text = "";
