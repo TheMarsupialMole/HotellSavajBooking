@@ -94,7 +94,7 @@ namespace HotellSavajBooking
 
         private void listAvailableRooms_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listAvailableRooms.SelectedIndex > 0)
+            if (listAvailableRooms.SelectedIndex > -1)
             {
                 btnBookRoom.Enabled = true;
             }
@@ -126,7 +126,7 @@ namespace HotellSavajBooking
               
                     int bookingNumber = _dbHandler.InsertBooking(new Booking(dtpStartDate.Value, dtpEndDate.Value, tbFirstName.Text,
                         tbLastName.Text, roomNumber, checkWakeupCall.Checked, dtpWakeupTime.Value));
-
+                    Console.WriteLine(bookingNumber);
                     if (bookingNumber != -1) MessageBox.Show(null, string.Format("Your room is booked with booking ID {0}!", bookingNumber), MessageBoxButtons.OK);
                 }
             }
