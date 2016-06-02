@@ -136,5 +136,10 @@ namespace HotellSavajBooking
         {
             ClearSearch();
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            new EditForm().Show();
+        }
     }
 }
