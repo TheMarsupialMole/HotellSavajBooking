@@ -18,7 +18,16 @@ namespace HotellSavajBooking
         private bool _wakeUp;
         private DateTime _wakeTime;
 
-
+        /// <summary>
+        /// Constructor that takes all the variables in the class
+        /// </summary>
+        /// <param name="startDate">the strart date</param>
+        /// <param name="endDate">the end date</param>
+        /// <param name="firstName">the first name</param>
+        /// <param name="lastName">the last name</param>
+        /// <param name="roomId">the romm number</param>
+        /// <param name="wakeUp">boolean for wake up call</param>
+        /// <param name="wakeTime">time for wake up call</param>
         public Booking(DateTime startDate, DateTime endDate, string firstName, string lastName, int roomId, bool wakeUp, DateTime wakeTime)
         {
             _startTime = startDate;
@@ -93,6 +102,11 @@ namespace HotellSavajBooking
             set { _wakeTime = value; }
         }
 
+        /// <summary>
+        /// Overridden IEquatable for comparing Booking objects
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public bool Equals(Booking other)
         {
             return _startTime == other._startTime && _endTime == other._endTime && _firstName == other._firstName &&
