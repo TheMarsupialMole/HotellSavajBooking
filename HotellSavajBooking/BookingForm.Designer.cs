@@ -49,15 +49,20 @@
             this.listAvailableRooms = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnBookRoom = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Constantia", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(86, 9);
+            this.label1.Location = new System.Drawing.Point(95, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(252, 33);
             this.label1.TabIndex = 0;
@@ -268,11 +273,49 @@
             this.btnBookRoom.UseVisualStyleBackColor = true;
             this.btnBookRoom.Click += new System.EventHandler(this.btnBookRoom_Click);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Location = new System.Drawing.Point(19, 326);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(398, 50);
+            this.groupBox3.TabIndex = 4;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Edit existing booking";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(147, 19);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 1;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(7, 22);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(134, 13);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Enter your booking number";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(253, 17);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(138, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Search for booking";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // BookingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(430, 328);
+            this.ClientSize = new System.Drawing.Size(430, 387);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
@@ -284,6 +327,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -312,5 +357,9 @@
         private System.Windows.Forms.ListBox listAvailableRooms;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnBookRoom;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

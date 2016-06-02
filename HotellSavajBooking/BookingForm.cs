@@ -19,8 +19,6 @@ namespace HotellSavajBooking
         public BookingForm()
         {
             InitializeComponent();
-            new EditForm().Show();
-            
         }
 
         private void Form1_Load(object sender, EventArgs e)
