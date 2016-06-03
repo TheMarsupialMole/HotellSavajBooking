@@ -13,14 +13,13 @@ namespace HotellSavajBooking
     /// <summary>
     /// Class written by Ted Malmgren
     /// 
-    /// The class hadles the editing or removal of a booking
+    /// The class handles the editing or removal of a booking
     /// </summary>
     public partial class EditForm : Form
     {
         private DbHandler dbHandler;
         private bool validPost = false;
         private Booking currentBooking = null;
-
 
         /// <summary>
         /// Constructor for the class
@@ -31,8 +30,10 @@ namespace HotellSavajBooking
             dbHandler = new DbHandler();    
         }
 
-   
-
+        /// <summary>
+        /// Method that fills the differens areas in the edit form with Booking values
+        /// </summary>
+        /// <param name="b"></param>
         private void PopulateWindow(Booking b)
         {
             currentBooking = b;
@@ -46,10 +47,14 @@ namespace HotellSavajBooking
             dntPickerend.Value = b.EndTime;
         }
 
-        private void ResetValues()
+        /// <summary>
+        /// Method that clears the Booking values from the edit form
+        /// </summary>
+        private void ResetValues() 
         {
             currentBooking = null;
             validPost = false;
+            txtBookingNr.Text = string.Empty;
             txtFirstName.Text = string.Empty;
             txtLastName.Text = string.Empty;
             txtRoomNumber.Text = string.Empty;
@@ -59,6 +64,10 @@ namespace HotellSavajBooking
             dntPickerend.Value = DateTime.Now;
         }
 
+        /// <summary>
+        /// Method that checks to see if a number has been entered
+        /// </summary>
+        /// <returns></returns>
         private bool ValidateBookingNumber()
         {
             if(!String.IsNullOrEmpty(txtBookingNr.Text) && txtBookingNr.Text.All(char.IsDigit))
@@ -66,10 +75,18 @@ namespace HotellSavajBooking
                 return true;
             }
             else
+            {
+                MessageBox.Show("Not a valid booking number!", "Incorrect entry");
                 return false;
+            }
+                
         }
 
-
+        /// <summary>
+        /// Method that handles the action when te "GO" button is pressed, fetches a booking
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGo_Click(object sender, EventArgs e)
         {
             if (ValidateBookingNumber())
@@ -87,11 +104,23 @@ namespace HotellSavajBooking
             }
         }
 
+        /// <summary>
+        /// Method that handles the action of the cancellation button. 
+        /// Closes the edit form if confirmed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Method that handles the action of the delete button. 
+        /// Deletes a Booking post from the database if confirmed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (validPost == true)
@@ -108,10 +137,19 @@ namespace HotellSavajBooking
             
         }
 
+        /// <summary>
+        /// Method that handles the action of the "EDIT" button.
+        /// Checks if changes has been made on the current booking and updates the database if confirmed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if(currentBooking != null)
             {
+                int bnr;
+                int.TryParse(txtBookingNr.Text, out bnr);
+
                 int o;
                 int.TryParse(txtRoomNumber.Text, out o);
 
@@ -123,7 +161,7 @@ namespace HotellSavajBooking
                     DialogResult dr = MessageBox.Show(this, "Are you sure?", "Update post?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                     if (dr == DialogResult.OK)
                     {
-                        if(dbHandler.UpdatePost(edited) == 1);
+                        if(dbHandler.UpdatePost(edited, bnr) == 1);
                             ResetValues();
                     }
                 }
@@ -132,11 +170,24 @@ namespace HotellSavajBooking
             }
         }
 
+        /// <summary>
+        /// Handles the action of the form closing event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditForm_FormClosing(Object sender, FormClosingEventArgs e)
         {
-            DialogResult dr = MessageBox.Show(this, "Are you sure?", "Exit", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
-            if (dr == DialogResult.Cancel)
-                e.Cancel = true;
+            int o;
+            int.TryParse(txtRoomNumber.Text, out o);
+            Booking edited = new Booking(dntPickerStart.Value, dntPickerend.Value, txtFirstName.Text,
+                    txtLastName.Text, o, chkBWake.Checked, dntPickerWake.Value);
+
+            if (currentBooking != null && !edited.Equals(currentBooking))
+            {
+                DialogResult dr = MessageBox.Show(this, "Are you sure?", "Exit", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                if (dr == DialogResult.Cancel)
+                    e.Cancel = true;
+            }
         }
     }
 }

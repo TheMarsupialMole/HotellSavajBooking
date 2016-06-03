@@ -122,11 +122,11 @@
             // 
             this.dntPickerWake.CustomFormat = "HH:mm";
             this.dntPickerWake.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dntPickerWake.Location = new System.Drawing.Point(147, 347);
+            this.dntPickerWake.Location = new System.Drawing.Point(224, 298);
             this.dntPickerWake.Name = "dntPickerWake";
             this.dntPickerWake.ShowUpDown = true;
-            this.dntPickerWake.Size = new System.Drawing.Size(201, 26);
-            this.dntPickerWake.TabIndex = 22;
+            this.dntPickerWake.Size = new System.Drawing.Size(124, 26);
+            this.dntPickerWake.TabIndex = 8;
             // 
             // chkBWake
             // 
@@ -134,7 +134,7 @@
             this.chkBWake.Location = new System.Drawing.Point(147, 301);
             this.chkBWake.Name = "chkBWake";
             this.chkBWake.Size = new System.Drawing.Size(22, 21);
-            this.chkBWake.TabIndex = 21;
+            this.chkBWake.TabIndex = 7;
             this.chkBWake.UseVisualStyleBackColor = true;
             // 
             // label8
@@ -160,8 +160,8 @@
             this.btnCancel.Location = new System.Drawing.Point(269, 400);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(86, 34);
-            this.btnCancel.TabIndex = 18;
-            this.btnCancel.Text = "CANCEL";
+            this.btnCancel.TabIndex = 11;
+            this.btnCancel.Text = "Exit";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -170,8 +170,8 @@
             this.btnDelete.Location = new System.Drawing.Point(143, 400);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(86, 34);
-            this.btnDelete.TabIndex = 17;
-            this.btnDelete.Text = "DELETE";
+            this.btnDelete.TabIndex = 10;
+            this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
@@ -180,8 +180,8 @@
             this.btnEdit.Location = new System.Drawing.Point(19, 400);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(86, 34);
-            this.btnEdit.TabIndex = 16;
-            this.btnEdit.Text = "EDIT";
+            this.btnEdit.TabIndex = 9;
+            this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
@@ -218,7 +218,7 @@
             this.txtRoomNumber.Location = new System.Drawing.Point(147, 249);
             this.txtRoomNumber.Name = "txtRoomNumber";
             this.txtRoomNumber.Size = new System.Drawing.Size(205, 26);
-            this.txtRoomNumber.TabIndex = 10;
+            this.txtRoomNumber.TabIndex = 6;
             // 
             // label3
             // 
@@ -243,14 +243,14 @@
             this.txtFirstName.Location = new System.Drawing.Point(147, 150);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(205, 26);
-            this.txtFirstName.TabIndex = 7;
+            this.txtFirstName.TabIndex = 4;
             // 
             // txtLastName
             // 
             this.txtLastName.Location = new System.Drawing.Point(147, 199);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(205, 26);
-            this.txtLastName.TabIndex = 6;
+            this.txtLastName.TabIndex = 5;
             // 
             // dntPickerend
             // 
@@ -258,7 +258,7 @@
             this.dntPickerend.Location = new System.Drawing.Point(147, 97);
             this.dntPickerend.Name = "dntPickerend";
             this.dntPickerend.Size = new System.Drawing.Size(201, 26);
-            this.dntPickerend.TabIndex = 5;
+            this.dntPickerend.TabIndex = 3;
             // 
             // dntPickerStart
             // 
@@ -266,7 +266,7 @@
             this.dntPickerStart.Location = new System.Drawing.Point(147, 47);
             this.dntPickerStart.Name = "dntPickerStart";
             this.dntPickerStart.Size = new System.Drawing.Size(201, 26);
-            this.dntPickerStart.TabIndex = 4;
+            this.dntPickerStart.TabIndex = 2;
             // 
             // txtBookingNr
             // 
@@ -286,10 +286,10 @@
             // 
             // btnGo
             // 
-            this.btnGo.Location = new System.Drawing.Point(329, 12);
+            this.btnGo.Location = new System.Drawing.Point(329, 18);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(66, 37);
-            this.btnGo.TabIndex = 4;
+            this.btnGo.TabIndex = 1;
             this.btnGo.Text = "GO";
             this.btnGo.UseVisualStyleBackColor = true;
             this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
@@ -304,6 +304,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBookingNr);
             this.Name = "EditForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Hotel Savaj Editform";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.roomBindingSource)).EndInit();

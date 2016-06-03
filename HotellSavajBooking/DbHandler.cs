@@ -20,17 +20,27 @@ namespace HotellSavajBooking
         //string used for connectiong to the database
         private string connectionString =
                  Properties.Settings.Default.HotSavDBConnectionString;
-        //The method return all available rooms based on the parameters provided
+
+        /// <summary>
+        /// The method returns all available rooms based on the parameters provided
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="typeOfRoom"></param>
+        /// <param name="miniBar"></param>
+        /// <returns></returns>
         public ArrayList GetAvailableRooms(DateTime start, DateTime end, int typeOfRoom, bool miniBar)
         {
-            ArrayList tmplist = new ArrayList();
+            ArrayList tmplist = new ArrayList();    //Holds the available rooms returned from the database
 
             SqlConnection con = new SqlConnection(connectionString);
             SqlCommand comm = new SqlCommand("SELECT Room.id from Room WHERE Room.id NOT IN (SELECT Room.id FROM Room inner join Booking on Room.Id = Booking.room WHERE " +
             "@start BETWEEN Booking.startdate AND Booking.enddate) AND Room.id NOT IN (SELECT Room.id FROM Room inner join Booking on Room.Id = Booking.room WHERE " +
-            "@end BETWEEN Booking.startdate AND Booking.enddate) AND Room.id IN (SELECT Room.id from Room WHERE Room.roomtype = @typeOfRoom AND Room.minibar = " +
+            "@end BETWEEN Booking.startdate AND Booking.enddate) AND Room.Id NOT IN (SELECT Room.Id from Room inner join Booking on Room.Id = Booking.room where @start < Booking.startdate AND @end > Booking.enddate) " +
+            "AND Room.id IN (SELECT Room.id from Room WHERE Room.roomtype = @typeOfRoom AND Room.minibar = " +
             "@miniBar)", con);
 
+            //Parameters for the query, this prevents sql injections
             comm.Parameters.Add("@start", SqlDbType.DateTime).Value = start;
             comm.Parameters.Add("@end", SqlDbType.DateTime).Value = end.AddDays(-1);
             comm.Parameters.Add("@typeOfRoom", SqlDbType.Int).Value = typeOfRoom;
@@ -48,7 +58,7 @@ namespace HotellSavajBooking
             }
             catch
             {
-                System.Windows.Forms.MessageBox.Show("Error", "Failed getting posts");
+                System.Windows.Forms.MessageBox.Show("Failed getting posts", "Error");
             }
             finally
             {
@@ -58,6 +68,11 @@ namespace HotellSavajBooking
             return tmplist;
         }
 
+        /// <summary>
+        /// The method returns a specific Booking based on the booking id
+        /// </summary>
+        /// <param name="bookingNr"></param>
+        /// <returns></returns>
         public Booking GetBooking(int bookingNr)
         {
             ArrayList tmplist = new ArrayList();
@@ -77,8 +92,8 @@ namespace HotellSavajBooking
                         tmplist.Add(reader.GetInt32(0));
                         tmplist.Add(reader.GetDateTime(1));
                         tmplist.Add(reader.GetDateTime(2));
-                        tmplist.Add(reader.GetString(3));
-                        tmplist.Add(reader.GetString(4));
+                        tmplist.Add(reader.GetString(3).Trim());
+                        tmplist.Add(reader.GetString(4).Trim());
                         tmplist.Add(reader.GetInt32(5));
                         tmplist.Add(reader.GetBoolean(6));
                         tmplist.Add(reader.GetDateTime(7));
@@ -87,7 +102,7 @@ namespace HotellSavajBooking
             }
             catch
             {
-                System.Windows.Forms.MessageBox.Show("Error", "Failed getting post");
+                System.Windows.Forms.MessageBox.Show("Failed getting post", "Error");
             }
             finally
             {
@@ -100,29 +115,33 @@ namespace HotellSavajBooking
                 return null;  
         }
 
-        internal int UpdatePost(Booking booking)
+        /// <summary>
+        /// The method updates a post in the database with the values input in the edit form
+        /// </summary>
+        /// <param name="booking"></param>
+        /// <returns></returns>
+        public int UpdatePost(Booking booking, int bnr)
         {
             int result = 0;
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand comm = new SqlCommand("UPDATE Booking SET firstname=@fn, lastname=@ln, wake=@w, waketime=@wt" +
-                    " WHERE Booking.startdate = @sd AND Booking.room = @rn", con);
-                comm.Parameters.Add("@sd", SqlDbType.DateTime).Value = booking.Startime;
-                comm.Parameters.Add("@ed", SqlDbType.DateTime).Value = booking.EndTime;
+                    " WHERE Booking.Id = @id", con);
                 comm.Parameters.Add("@fn", SqlDbType.NChar).Value = booking.FirstName;
                 comm.Parameters.Add("@ln", SqlDbType.NChar).Value = booking.LastName;
-                comm.Parameters.Add("@rn", SqlDbType.Int).Value = booking.BookedId;
                 comm.Parameters.Add("@w", SqlDbType.Bit).Value = booking.WakeUp;
                 comm.Parameters.Add("@wt", SqlDbType.DateTime).Value = booking.WakeTime;
+                comm.Parameters.Add("@id", SqlDbType.Int).Value = bnr;
+
                 try
                 {
                     con.Open();
                     result = comm.ExecuteNonQuery();
-                    System.Windows.Forms.MessageBox.Show("updated", "true");
+                    System.Windows.Forms.MessageBox.Show("Post was updated successfully!", "Updated");
                 }
                 catch
                 {
-                    System.Windows.Forms.MessageBox.Show("updated", "false");
+                    System.Windows.Forms.MessageBox.Show("An error occurred, the post was not updated!", "Not Updated");
                 }
                 finally
                 {
@@ -132,6 +151,11 @@ namespace HotellSavajBooking
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bnr"></param>
+        /// <returns></returns>
         public int DeletePost(int bnr)
         {
             int success = -1;
@@ -144,11 +168,10 @@ namespace HotellSavajBooking
                 {
                     con.Open();
                     success = comm.ExecuteNonQuery();             
-                    System.Windows.Forms.MessageBox.Show("Deleted", "Deleted");
                 }
                 catch
                 {
-                    System.Windows.Forms.MessageBox.Show("Deleted", "Failed");
+                    System.Windows.Forms.MessageBox.Show("The deletion failed", "Error");
                 }
                 finally
                 {
@@ -175,11 +198,10 @@ namespace HotellSavajBooking
                 {
                     con.Open();
                     newId = (Int32)comm.ExecuteScalar();
-                    System.Windows.Forms.MessageBox.Show("inserted", "true");
                 }
                 catch
                 {
-                    System.Windows.Forms.MessageBox.Show("inserted", "false");
+                    System.Windows.Forms.MessageBox.Show("An error prevented the post to be saved", "Insertion error");
                 }
                 finally
                 {
